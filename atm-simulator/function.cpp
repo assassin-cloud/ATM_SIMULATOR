@@ -113,7 +113,7 @@ void deleteaccount(int& numberofaccounts, bool& loggedin, int accountloggedinnum
                 loggedin = false;
             }
             for(int i=remove;i<numberofaccounts-1;i++){
-                account[i].accountnumber = account[i+1].accountnumber;
+                account[i] = account[i+1];
             }
             cout << "Successfully deleted" << endl;
             numberofaccounts--;
