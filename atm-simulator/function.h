@@ -17,3 +17,4 @@ void moneyrelated();
 void checkbalance(int accountloggedinnumber, int numberofaccounts);
 void depositmoney(int accountloggedinnumber, int numberofaccounts, int accountloggedinpin);
 void withdrawmoney(int accountloggedinnumber, int numberofaccounts, int accountloggedinpin);
+void transfermoney(int accountloggedinnumber, int numberofaccounts, int accountloggedinpin);
