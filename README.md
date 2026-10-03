@@ -64,31 +64,6 @@ assassin-cloud-atm_simulator/
     ├── function.cpp
     └── function.h
 
-````
-# ATM Simulator
-
-<p align="center">
-  <strong>A console-based ATM simulator written in C++</strong>
-  <br>
-  Built for learning, experimentation, and practicing software development.
-</p>
-
-<p align="center">
-  <img src="https://img.shields.io/badge/C%2B%2B-17%2B-00599C?style=for-the-badge&logo=cplusplus&logoColor=white" alt="C++17+">
-  <img src="https://img.shields.io/badge/Status-Pre--Release-orange?style=for-the-badge" alt="Pre-release">
-  <img src="https://img.shields.io/badge/Platform-Cross--Platform-2ea44f?style=for-the-badge" alt="Cross-platform">
-</p>
-
-> [!WARNING]
-> **Pre-release software:** This project is still under active development. Some features are incomplete, bugs may exist, and breaking changes are possible.
-
-## Overview
-
- | File | Description |
-| --- | --- |
-| `main.cpp` | Main program loop and menu handling |
-| `function.cpp` | ATM and account functionality |
-| `function.h` | Function declarations |
 
 ## Requirements
 
