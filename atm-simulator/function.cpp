@@ -223,14 +223,59 @@ void moneyrelated(){
 
 void checkbalance(int accountloggedinnumber, int numberofaccounts){
     int* p = new int;
+    bool accountfound {false};
     for(int i=0;i<numberofaccounts;i++){
         if(accountloggedinnumber == account[i].accountnumber){
             *p = i;
+            accountfound = true;
+            break;
+        }
+        else{
+            accountfound = false;
         }
     }
-    cout << "Balance: " << "$" << account[*p].money << endl;
-    delete p;
-    p = nullptr;
+    if(accountfound){
+        cout << "Balance: " << "$" << account[*p].money << endl;
+        delete p;
+        p = nullptr;
+    }
+    else{
+        cout << "There is an issue with your account, trying logging out and logging in again" << endl;
+        delete p;
+        p = nullptr;
+    }
 }
 
-void depositmoney(int accountloggedinnumber, int numberofaccounts){}
+void depositmoney(int accountloggedinnumber, int numberofaccounts){
+    int* p = new int;
+    bool accountfound {false};
+    for(int i=0;i<numberofaccounts;i++){
+        if(accountloggedinnumber == account[i].accountnumber){
+            *p = i;
+            accountfound = true;
+            break;
+        }
+        else{
+            accountfound = false;
+        }
+    }
+    if(accountfound){
+        cout << "Input the ammount you wanna deposit:" << endl;
+        int ammount {takeinput()};
+        if(ammount <= 0){
+            cout << "Ammount can't be zero or negative!" << endl;
+        }
+        else{
+            account[*p].money += ammount;
+            cout << "Ammount successfully deposited" << endl;
+            cout << "Balance: " << "$" << account[*p].money << endl;
+            delete p;
+            p = nullptr;
+        }
+    }
+    else{
+        cout << "There is an issue with your account, trying logging out and logging in again" << endl;
+        delete p;
+        p = nullptr; 
+    }
+}
