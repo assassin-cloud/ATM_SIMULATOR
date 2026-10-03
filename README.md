@@ -8,18 +8,19 @@
 
 <p align="center">
   <img src="https://img.shields.io/badge/C%2B%2B-17%2B-00599C?style=for-the-badge&logo=cplusplus&logoColor=white" alt="C++17+">
-  <img src="https://img.shields.io/badge/Status-Pre--Release-orange?style=for-the-badge" alt="Pre-release">
-  <img src="https://img.shields.io/badge/Platform-Cross--Platform-2ea44f?style=for-the-badge" alt="Cross-platform">
+  <img src="https://img.shields.io/badge/Version-1.0.0-2ea44f?style=for-the-badge" alt="Version 1.0.0">
+  <img src="https://img.shields.io/badge/Status-Complete-22c55e?style=for-the-badge" alt="Complete">
+  <img src="https://img.shields.io/badge/Platform-Cross--Platform-6f42c1?style=for-the-badge" alt="Cross-platform">
 </p>
 
-> [!WARNING]
-> **Pre-release software:** This project is still under active development. Some features are incomplete, bugs may exist, and breaking changes are possible.
+> [!NOTE]
+> **v1.0.0 is complete.** The first version of the project is finished and functional. Future versions may introduce new features, improvements, refactoring, bug fixes, and better testing.
 
 ## Overview
 
-ATM Simulator provides a simple command-line environment for managing accounts and simulating basic ATM functionality.
+ATM Simulator is a console-based application written in C++ that provides a simple environment for creating and managing accounts while simulating basic ATM operations.
 
-The current version includes account creation, PIN authentication, login/logout, account information, PIN changes, account listing, account deletion, balance checking, deposits, and withdrawals.
+The project supports account creation, PIN authentication, login/logout, account information, PIN changes, account listing, account deletion, balance checking, deposits, withdrawals, and transfers.
 
 ## Features
 
@@ -34,6 +35,7 @@ The current version includes account creation, PIN authentication, login/logout,
 - Balance checking
 - Deposits
 - Withdrawals
+- Money transfers
 - Basic input validation
 - Console-based interface
 
@@ -49,20 +51,23 @@ The current version includes account creation, PIN authentication, login/logout,
 | Change PIN | ✅ Implemented |
 | View accounts | ✅ Implemented |
 | Delete accounts | ✅ Implemented |
-| Balance checking | 🚧 Not implemented |
-| Deposits | 🚧 Not implemented |
-| Withdrawals | 🚧 Not implemented |
-| Transfers | 🚧 Not implemented |
-| Persistent storage | 🚧 Not implemented |
+| Balance checking | ✅ Implemented |
+| Deposits | ✅ Implemented |
+| Withdrawals | ✅ Implemented |
+| Transfers | ✅ Implemented |
+| Persistent storage | 🚧 Planned |
+| Automated testing | 🚧 Planned |
 
 ## Project Structure
 
 ```text
 assassin-cloud-atm_simulator/
+├── README.md
 └── atm-simulator/
     ├── main.cpp
     ├── function.cpp
     └── function.h
+
 ````
 
  | File | Description |
@@ -76,7 +81,11 @@ assassin-cloud-atm_simulator/
  - C++ compiler
 - C++17 or newer recommended
 
- Supported compilers include GCC, Clang, and MSVC.
+ Supported compilers include:
+
+ - GCC
+- Clang
+- MSVC
 
  ## Installation
 
@@ -94,13 +103,13 @@ cd assassin-cloud-atm_simulator/atm-simulator
 
  ## Build
 
- Compile with GCC:
+ ### Standard Build
 
 ```
 g++ main.cpp function.cpp -std=c++17 -o atm-simulator
 ```
 
- For a debug build:
+ ### Debug Build
 
 ```
 g++ main.cpp function.cpp -std=c++17 -Wall -Wextra -g -o atm-simulator
@@ -129,15 +138,13 @@ g++ main.cpp function.cpp -std=c++17 -Wall -Wextra -g -o atm-simulator
    ATM
 ==========
 
-1. Sign in
+1. Login
 2. Account info
 3. Register(create a account)
 4. See all accounts on the device
 5. Check your balance, deposit, withdraw and transfer
 6. Exit
 ```
-
- > **Note:** Option 5 is currently not implemented.
 
  ### Creating an Account
 
@@ -146,6 +153,8 @@ g++ main.cpp function.cpp -std=c++17 -Wall -Wextra -g -o atm-simulator
  - A unique account number
 - Your name
 - A PIN
+
+ New accounts currently start with a balance of **$7000**.
 
  ### Signing In
 
@@ -167,6 +176,31 @@ g++ main.cpp function.cpp -std=c++17 -Wall -Wextra -g -o atm-simulator
 
  Accounts can also be deleted from this menu.
 
+ ### Banking Operations
+
+ After logging in, select `5` to access the banking menu:
+
+```
+==========
+   ATM
+==========
+
+1. Check your balance
+2. Deposit money
+3. Withdraw money
+4. Transfer money
+5. Exit
+```
+
+ Available operations include:
+
+ - Checking your balance
+- Depositing money
+- Withdrawing money
+- Transferring money to another account
+
+ PIN verification is required for financial operations.
+
  ## Limitations
 
  ### Account Limit
@@ -175,7 +209,9 @@ g++ main.cpp function.cpp -std=c++17 -Wall -Wextra -g -o atm-simulator
 
  ### Data Persistence
 
- Accounts are stored only in memory. All accounts are lost when the application closes.
+ Accounts are stored only in memory.
+
+ All accounts and balances are lost when the application closes.
 
  There is currently no file, database, or cloud storage.
 
@@ -185,33 +221,30 @@ g++ main.cpp function.cpp -std=c++17 -Wall -Wextra -g -o atm-simulator
 
  This project should not be used with real banking credentials or sensitive financial information.
 
- ### Incomplete Features
+ ### Automated Testing
 
- The following features are planned but are not currently implemented:
+ Automated tests have not yet been added.
 
- - Balance management
-- Deposits
-- Withdrawals
-- Transfers
-- Persistent account storage
+ Testing is currently performed manually through the console application.
 
- ## Development
+ ## Future Improvements
 
- The project is currently in active development.
+ v1.0.0 is complete, but there is still significant room for future development.
 
  Planned improvements include:
 
- - [ ] Implement balance management
-- [ ] Implement deposits
-- [ ] Implement withdrawals
-- [ ] Implement transfers
-- [ ] Add persistent storage
+ - [ ] Add persistent storage
+- [ ] Add automated testing
 - [ ] Improve input validation
 - [ ] Improve error handling
 - [ ] Refactor account management
-- [ ] Add testing
 - [ ] Improve code structure
-- [ ] Prepare stable release
+- [ ] Improve security
+- [ ] Add transaction history
+- [ ] Add account types
+- [ ] Add transaction limits
+- [ ] Improve user interface
+- [ ] Add better documentation
 
  ## Contributing
 
@@ -238,6 +271,12 @@ g++ main.cpp function.cpp -std=c++17 -Wall -Wextra -g -o atm-simulator
 
  No license has currently been specified for this project.
 
- ## Status
+ ## Version
 
- **Pre-release · Active Development · Not Production Ready**
+ **v1.0.0 — Complete**
+
+ The first version of ATM Simulator is complete and functional.
+
+ Future releases will focus on improving reliability, testing, security, code quality, persistence, and overall functionality.
+
+ \<p align="center"\> \<strong\>ATM Simulator v1.0.0\</strong\> \<br\> \<sub\>Built with C++ · First Release\</sub\> \</p\> \`\`\`
