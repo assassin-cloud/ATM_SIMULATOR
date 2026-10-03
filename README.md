@@ -63,7 +63,13 @@ assassin-cloud-atm_simulator/
     ├── main.cpp
     ├── function.cpp
     └── function.h
+````
 
+ | File | Description |
+| --- | --- |
+| `main.cpp` | Main program loop and menu handling |
+| `function.cpp` | ATM and account functionality |
+| `function.h` | Function declarations |
 
 ## Requirements
 
