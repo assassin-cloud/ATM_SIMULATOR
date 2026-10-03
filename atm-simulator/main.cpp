@@ -89,7 +89,11 @@ int main(){
                             wait();
                         }
                         else if(userinput == 2){
-                            
+                            depositmoney(accountloggedinnumber, numberofaccounts);
+                            wait();
+                        }
+                        else if(userinput == 5){
+                            break;
                         }
                     }
                 }
