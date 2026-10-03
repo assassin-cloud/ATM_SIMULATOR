@@ -1,72 +1,99 @@
-````
 # ATM Simulator
 
-A console-based ATM simulator written in C++.
+ A console-based ATM simulator written in C++ for learning and experimentation.
 
-> [!WARNING]
-> This project is currently in **pre-release development**. Some features are incomplete, bugs are expected, and the project is not production-ready.
+ > \[!WARNING\]\
+>  **Pre-release software:** This project is still under active development. Some features are incomplete, bugs may exist, and breaking changes are possible.
 
-## Features
+ ## Overview
 
-- Create new accounts
+ ATM Simulator provides a simple command-line environment for managing accounts and simulating basic ATM functionality.
+
+ The current version includes account creation, PIN authentication, login/logout, account information, PIN changes, account listing, and account deletion.
+
+ ## Features
+
+ - Account registration
 - Unique account numbers
 - PIN-based authentication
 - Account login and logout
-- View account information
-- Change account PIN
-- View all accounts
-- Delete accounts
+- Account information
+- PIN changes
+- Account listing
+- Account deletion
 - Basic input validation
 - Console-based interface
 
-## In Development
+ ## Current Functionality
 
-The following features are planned but are not implemented yet:
-
-- [ ] Balance checking
-- [ ] Depositing money
-- [ ] Withdrawing money
-- [ ] Transferring money between accounts
-- [ ] Persistent account storage
-- [ ] Improved input validation
-- [ ] Improved error handling
-- [ ] Code refactoring
-- [ ] Testing
+ | Feature | Status |
+| --- | --- |
+| Account registration | ✅ Implemented |
+| Account numbers | ✅ Implemented |
+| PIN authentication | ✅ Implemented |
+| Login / Logout | ✅ Implemented |
+| Account information | ✅ Implemented |
+| Change PIN | ✅ Implemented |
+| View accounts | ✅ Implemented |
+| Delete accounts | ✅ Implemented |
+| Balance checking | 🚧 Not implemented |
+| Deposits | 🚧 Not implemented |
+| Withdrawals | 🚧 Not implemented |
+| Transfers | 🚧 Not implemented |
+| Persistent storage | 🚧 Not implemented |
 
 ## Project Structure
 
-```text
-atm-simulator/
-├── main.cpp
-├── function.cpp
-└── function.h
-````
+```
+assassin-cloud-atm_simulator/
+└── atm-simulator/
+    ├── main.cpp
+    ├── function.cpp
+    └── function.h
+```
 
  | File | Description |
 | --- | --- |
 | `main.cpp` | Main program loop and menu handling |
-| `function.cpp` | Account and ATM functionality |
+| `function.cpp` | ATM and account functionality |
 | `function.h` | Function declarations |
 
 ## Requirements
 
  - C++ compiler
-- C++17 or newer
+- C++17 or newer recommended
 
- ## Build
+ Supported compilers include GCC, Clang, and MSVC.
+
+ ## Installation
 
  Clone the repository:
 
 ```
 git clone <repository-url>
-cd atm-simulator
 ```
 
- Compile the project:
+ Navigate to the project:
+
+```
+cd assassin-cloud-atm_simulator/atm-simulator
+```
+
+ ## Build
+
+ Compile with GCC:
 
 ```
 g++ main.cpp function.cpp -std=c++17 -o atm-simulator
 ```
+
+ For a debug build:
+
+```
+g++ main.cpp function.cpp -std=c++17 -Wall -Wextra -g -o atm-simulator
+```
+
+ ## Run
 
  ### Linux / macOS
 
@@ -80,7 +107,9 @@ g++ main.cpp function.cpp -std=c++17 -o atm-simulator
 .\atm-simulator.exe
 ```
 
- ## Current Menu
+ ## Usage
+
+ The application starts with the following menu:
 
 ```
 ==========
@@ -95,33 +124,107 @@ g++ main.cpp function.cpp -std=c++17 -o atm-simulator
 6. Exit
 ```
 
- > **Note:** Option 5 is currently planned and is not implemented yet.
+ > **Note:** Option 5 is currently not implemented.
+
+ ### Creating an Account
+
+ Select `3` from the main menu and provide:
+
+ - A unique account number
+- Your name
+- A PIN
+
+ ### Signing In
+
+ Select `1` and provide the account number and PIN associated with the account.
+
+ ### Account Information
+
+ After signing in, select `2` to access account information.
+
+ Available options include:
+
+ - Change PIN
+- Log out
+- Return to the main menu
+
+ ### Account Management
+
+ Select `4` from the main menu to view registered accounts.
+
+ Accounts can also be deleted from this menu.
 
  ## Limitations
 
- - A maximum of **5 accounts** can currently be created.
-- Accounts are stored only in memory.
-- All accounts are lost when the program exits.
-- There is no database or file storage.
-- PINs are stored directly in memory and are not encrypted.
-- Some menu options are still under development.
+ ### Account Limit
 
- ## Development Status
+ The current implementation supports a maximum of **5 accounts**.
 
- **Version:** Pre-release\
- **Status:** Active Development\
- **Stability:** Experimental
+ ### Data Persistence
 
- The project is being actively developed, and functionality may change between versions.
+ Accounts are stored only in memory. All accounts are lost when the application closes.
+
+ There is currently no file, database, or cloud storage.
+
+ ### Security
+
+ PINs are currently stored directly in memory and are not encrypted or hashed.
+
+ This project should not be used with real banking credentials or sensitive financial information.
+
+ ### Incomplete Features
+
+ The following features are planned but are not currently implemented:
+
+ - Balance management
+- Deposits
+- Withdrawals
+- Transfers
+- Persistent account storage
+
+ ## Development
+
+ The project is currently in active development.
+
+ Planned improvements include:
+
+ - [ ] Implement balance management
+- [ ] Implement deposits
+- [ ] Implement withdrawals
+- [ ] Implement transfers
+- [ ] Add persistent storage
+- [ ] Improve input validation
+- [ ] Improve error handling
+- [ ] Refactor account management
+- [ ] Add testing
+- [ ] Improve code structure
+- [ ] Prepare stable release
+
+ ## Contributing
+
+ Contributions, suggestions, and bug reports are welcome.
+
+ For bug reports, include:
+
+ - Description of the issue
+- Steps to reproduce it
+- Expected behavior
+- Actual behavior
+- Compiler and operating system information
+- Relevant error messages
 
  ## Disclaimer
 
- This project is intended for **educational and development purposes only**.
+ This project is an educational ATM simulator.
 
- It is not connected to any real banking system and does not process real financial transactions.
+ It does not connect to real banking systems, process real money, or perform real financial transactions.
 
  Do not use real banking credentials, PINs, passwords, or financial information with this application.
 
-```
+ ## License
 
-```
+ No license has currently been specified for this project.
+
+ ## Status
+
+ **Pre-release · Active Development · Not Production Ready**
