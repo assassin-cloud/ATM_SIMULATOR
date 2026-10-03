@@ -84,20 +84,29 @@ int main(){
                     if(loggedin){
                         moneyrelated();
                         userinput = takeinput();
-                        if(userinput == 1){
-                            checkbalance(accountloggedinnumber, numberofaccounts);
-                            wait();
+                        if(cin.fail()){
+                            cinbugfix();
                         }
-                        else if(userinput == 2){
-                            depositmoney(accountloggedinnumber, numberofaccounts, accountloggedinpin);
-                            wait();
-                        }
-                        else if(userinput == 3){
-                            withdrawmoney(accountloggedinnumber, numberofaccounts, accountloggedinpin);
-                            wait();
-                        }
-                        else if(userinput == 5){
-                            break;
+                        else{
+                            if(userinput == 1){
+                                checkbalance(accountloggedinnumber, numberofaccounts);
+                                wait();
+                            }
+                            else if(userinput == 2){
+                                depositmoney(accountloggedinnumber, numberofaccounts, accountloggedinpin);
+                                wait();
+                            }
+                            else if(userinput == 3){
+                                withdrawmoney(accountloggedinnumber, numberofaccounts, accountloggedinpin);
+                                wait();
+                            }
+                            else if(userinput == 4){
+                                transfermoney(accountloggedinnumber, numberofaccounts, accountloggedinpin);
+                                wait();
+                            }
+                            else if(userinput == 5){
+                                break;
+                            }
                         }
                     }
                     else{
