@@ -7,7 +7,7 @@ void mainmenu(){
     cout << "   ATM    " << endl;
     cout << "==========" << endl;
     cout << endl;
-    cout << "1. Sign in" << endl;
+    cout << "1. Login" << endl;
     cout << "2. Account info" << endl;
     cout << "3. Register(create a account)" << endl;
     cout << "4. See all accounts on the device" << endl;
@@ -65,6 +65,7 @@ void add(int& numberofaccounts){
             getline(cin, account[numberofaccounts].name);
             cout << "PIN:" << endl;
             cin >> account[numberofaccounts].pin;
+            account[numberofaccounts].money = 7000;
             cout << "Account added successfully" << endl;
             cout << "Please login from the login option in main menu!" << endl;
             numberofaccounts+=1;
@@ -206,3 +207,30 @@ void changepin(int numberofaccounts, int& accountloggedinpin, int accountloggedi
         cout << "Wrong Pin" << endl;
     }
 }
+
+void moneyrelated(){
+    cout << "==========" << endl;
+    cout << "   ATM    " << endl;
+    cout << "==========" << endl;
+    cout << endl;
+    cout << "1. Check your balance" << endl;
+    cout << "2. Deposit money" << endl;
+    cout << "3. Withdraw money" << endl;
+    cout << "4. Transfer money" << endl;
+    cout << "5. Exit" << endl;
+    cout << "Input:" << endl;
+}
+
+void checkbalance(int accountloggedinnumber, int numberofaccounts){
+    int* p = new int;
+    for(int i=0;i<numberofaccounts;i++){
+        if(accountloggedinnumber == account[i].accountnumber){
+            *p = i;
+        }
+    }
+    cout << "Balance: " << "$" << account[*p].money << endl;
+    delete p;
+    p = nullptr;
+}
+
+void depositmoney(int accountloggedinnumber, int numberofaccounts){}
