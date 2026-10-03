@@ -352,3 +352,66 @@ void withdrawmoney(int accountloggedinnumber, int numberofaccounts, int accountl
     delete p;
     p = nullptr;
 }
+
+void transfermoney(int accountloggedinnumber, int numberofaccounts, int accountloggedinpin){
+    int* p = new int;
+    int* ptr = new int;
+    bool foundaccount1 {false};
+    bool foundaccount2 {false};
+    for(int i=0;i<numberofaccounts;i++){
+        if(accountloggedinnumber == account[i].accountnumber){
+            *p = i;
+            foundaccount1 = true;
+            break;
+        }
+        else{
+            foundaccount1 = false;
+        }
+    }
+    if(foundaccount1){
+        cout << "Type the account number you wanna transfer to: " << endl;
+        int inputaccount {takeinput()};
+        for(int i=0;i<numberofaccounts;i++){
+            if(inputaccount == account[i].accountnumber){
+                *ptr = i;
+                foundaccount2 = true;
+                break;
+            }
+            else{
+                foundaccount2 = false;
+            }
+        }
+        if(foundaccount2){
+            cout << "Account found: " << endl;
+            cout << "Account Number: " << account[*ptr].accountnumber << endl;
+            cout << "Name: " << account[*ptr].name << endl;
+            if(inputpin(accountloggedinpin, numberofaccounts)){
+                cout << "Input the ammount you wanna transfer: " << endl;
+                int ammount {takeinput()};
+                if(ammount <= 0 || ammount > account[*p].money){
+                    cout << "Ammount can't be bigger than balance, ammount can't be zero or negative" << endl;
+                }
+                else{
+                    account[*p].money -= ammount;
+                    account[*ptr].money += ammount;
+                    cout << "Successfully transfered" << endl;
+                    cout << account[*p].accountnumber << " Transfered " << ammount << " to " << account[*ptr].accountnumber << endl;
+                    cout << "Balance: " << account[*p].money << endl;
+                }
+            }
+            else{
+                cout << "Invalid Pin" << endl;
+            }
+        }
+        else{
+            cout << "Can't find the account" << endl;
+        }
+    }
+    else{
+        cout << "There is an issue with your account, trying logging out and logging in again" << endl;
+    }
+    delete p;
+    p = nullptr;
+    delete ptr;
+    ptr = nullptr;
+}
