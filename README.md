@@ -278,5 +278,9 @@ g++ main.cpp function.cpp -std=c++17 -Wall -Wextra -g -o atm-simulator
  The first version of ATM Simulator is complete and functional.
 
  Future releases will focus on improving reliability, testing, security, code quality, persistence, and overall functionality.
-
- \<p align="center"\> \<strong\>ATM Simulator v1.0.0\</strong\> \<br\> \<sub\>Built with C++ · First Release\</sub\> \</p\> \`\`\`
+ 
+ <p align="center">
+  <strong>ATM Simulator v1.0.0</strong>
+  <br>
+  <sub>Built with C++ · First Release</sub>
+</p>
