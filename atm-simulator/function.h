@@ -15,3 +15,4 @@ void accountinfo(bool loggedin, int accountloggedinnumber, std::string accountlo
 void changepin(int numberofaccounts, int& accountloggedinpin, int accountloggedinnumber);
 void moneyrelated();
 void checkbalance(int accountloggedinnumber, int numberofaccounts);
+void depositmoney(int accountloggedinnumber, int numberofaccounts);
