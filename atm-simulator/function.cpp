@@ -131,7 +131,9 @@ void deleteaccount(int& numberofaccounts, bool& loggedin, int accountloggedinnum
             }
         }
         if(canrun){
-            if(inputpin(accountloggedinpin, numberofaccounts)){
+            cout << "Input pin to verify:" << endl;
+            int pin {takeinput()};
+            if(pin == account[remove].pin){
                 if(accountloggedinnumber == account[remove].accountnumber){
                     loggedin = false;
                 }
@@ -221,13 +223,19 @@ void changepin(int numberofaccounts, int& accountloggedinpin, int accountloggedi
         }
         if(accountfound){
             cout << "Input new pin:" << endl;
-            cin >> account[*p].pin;
-            if(account[*p].pin < 0){
-                cout << "Pin can't be negative" << endl;
+            int pin {takeinput()};
+            if(cin.fail()){
+                cinbugfix();
             }
             else{
-                cout << "Successfully Changed!" << endl;
-                accountloggedinpin = account[*p].pin;
+                if(pin < 0){
+                    cout << "Pin can't be negative" << endl;
+                }
+                else{
+                    cout << "Successfully Changed!" << endl;
+                    account[*p].pin = pin;
+                    accountloggedinpin = pin;
+                }
             }
         }
         else{
@@ -382,25 +390,30 @@ void transfermoney(int accountloggedinnumber, int numberofaccounts, int accountl
             }
         }
         if(foundaccount2){
-            cout << "Account found: " << endl;
-            cout << "Account Number: " << account[*ptr].accountnumber << endl;
-            cout << "Name: " << account[*ptr].name << endl;
-            if(inputpin(accountloggedinpin, numberofaccounts)){
-                cout << "Input the ammount you wanna transfer: " << endl;
-                int ammount {takeinput()};
-                if(ammount <= 0 || ammount > account[*p].money){
-                    cout << "Ammount can't be bigger than balance, ammount can't be zero or negative" << endl;
-                }
-                else{
-                    account[*p].money -= ammount;
-                    account[*ptr].money += ammount;
-                    cout << "Successfully transfered" << endl;
-                    cout << account[*p].accountnumber << " Transfered " << ammount << " to " << account[*ptr].accountnumber << endl;
-                    cout << "Balance: " << account[*p].money << endl;
-                }
+            if(account[*ptr].accountnumber == account[*p].accountnumber){
+                cout << "Can't transfer money to the same account!" << endl;
             }
             else{
-                cout << "Invalid Pin" << endl;
+                cout << "Account found: " << endl;
+                cout << "Account Number: " << account[*ptr].accountnumber << endl;
+                cout << "Name: " << account[*ptr].name << endl;
+                if(inputpin(accountloggedinpin, numberofaccounts)){
+                    cout << "Input the ammount you wanna transfer: " << endl;
+                    int ammount {takeinput()};
+                    if(ammount <= 0 || ammount > account[*p].money){
+                        cout << "Ammount can't be bigger than balance, ammount can't be zero or negative" << endl;
+                    }
+                    else{
+                        account[*p].money -= ammount;
+                        account[*ptr].money += ammount;
+                        cout << "Successfully transfered" << endl;
+                        cout << account[*p].accountnumber << " Transfered " << ammount << " to " << account[*ptr].accountnumber << endl;
+                        cout << "Balance: " << account[*p].money << endl;
+                    }
+                }
+                else{
+                    cout << "Invalid Pin" << endl;
+                }
             }
         }
         else{
