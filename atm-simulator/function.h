@@ -13,3 +13,5 @@ void deleteaccount(int& numberofaccounts, bool& loggedin, int accountloggedinnum
 void login(int numberofaccounts, bool& loggedin, int& accountloggedinnumber, std::string& accountloggedinname, int& accountloggedinpin);
 void accountinfo(bool loggedin, int accountloggedinnumber, std::string accountloggedinname);
 void changepin(int numberofaccounts, int& accountloggedinpin, int accountloggedinnumber);
+void moneyrelated();
+void checkbalance(int accountloggedinnumber, int numberofaccounts);
