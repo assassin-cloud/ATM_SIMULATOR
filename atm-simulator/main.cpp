@@ -67,7 +67,7 @@ int main(){
                         }
                         else{
                             if(userinput == 1){
-                                deleteaccount(numberofaccounts, loggedin, accountloggedinnumber);
+                                deleteaccount(numberofaccounts, loggedin, accountloggedinnumber, accountloggedinpin);
                             }
                             else if(userinput == 2){
                                 break;
@@ -89,12 +89,20 @@ int main(){
                             wait();
                         }
                         else if(userinput == 2){
-                            depositmoney(accountloggedinnumber, numberofaccounts);
+                            depositmoney(accountloggedinnumber, numberofaccounts, accountloggedinpin);
+                            wait();
+                        }
+                        else if(userinput == 3){
+                            withdrawmoney(accountloggedinnumber, numberofaccounts, accountloggedinpin);
                             wait();
                         }
                         else if(userinput == 5){
                             break;
                         }
+                    }
+                    else{
+                        cout << "Please login into your account!" << endl;
+                        break;
                     }
                 }
             }
