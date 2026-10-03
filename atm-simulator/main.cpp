@@ -79,8 +79,26 @@ int main(){
                     }
                 }
             }
+            else if(userinput == 5){
+                while(true){
+                    if(loggedin){
+                        moneyrelated();
+                        userinput = takeinput();
+                        if(userinput == 1){
+                            checkbalance(accountloggedinnumber, numberofaccounts);
+                            wait();
+                        }
+                        else if(userinput == 2){
+                            
+                        }
+                    }
+                }
+            }
             else if(userinput == 6){
                 break;
+            }
+            else{
+                cout << "Invalid Input" << endl;
             }
         }
     }
