@@ -1,104 +1,106 @@
-README.md
+# ATM Simulator
 
-# 🏧 ATM Simulator
+ \<div align="center"\> ### 🏧 ATM Simulator
 
- \<p align="center"\> \<strong\>A console-based ATM simulator written in C++\</strong\> \<br\> Built for learning, experimentation, and practicing software development. \</p\> \<p align="center"\> \<img src="https://img.shields.io/badge/C%2B%2B-17%2B-00599C?style=for-the-badge&logo=cplusplus&logoColor=white" alt="C++17+"\> \<img src="https://img.shields.io/badge/Status-Pre--Release-orange?style=for-the-badge" alt="Pre-release"\> \<img src="https://img.shields.io/badge/Platform-Cross--Platform-2ea44f?style=for-the-badge" alt="Cross-platform"\> \</p\> > \[!WARNING\]\
->  **Pre-release software:** This project is actively being developed. Bugs may exist and breaking changes are possible.
+ **A console-based ATM simulator written in C++**
 
----
+ \
+ \
 
- ## ✨ Features
+ \</div\> > **⚠️ Pre-release software:** This project is still under active development. Some features are incomplete, bugs may exist, and breaking changes are possible.
+
+ ## Overview
+
+ ATM Simulator provides a simple command-line environment for managing accounts and simulating basic ATM functionality.
+
+ The current version includes account creation, PIN authentication, login/logout, account information, PIN changes, account listing, account deletion, balance checking, deposits, and withdrawals.
+
+ ## Features
+
+ - Account registration
+- Unique account numbers
+- PIN-based authentication
+- Account login and logout
+- Account information
+- PIN changes
+- Account listing
+- Account deletion
+- Balance checking
+- Deposits
+- Withdrawals
+- Basic input validation
+- Console-based interface
+
+ ## Current Functionality
 
  | Feature | Status |
 | --- | --- |
-| 👤 Account registration | ✅ |
-| 🔢 Unique account numbers | ✅ |
-| 🔐 PIN authentication | ✅ |
-| 🔑 Login / Logout | ✅ |
-| 📋 Account information | ✅ |
-| 🔄 Change PIN | ✅ |
-| 👥 View accounts | ✅ |
-| 🗑️ Delete accounts | ✅ |
-| 💰 Balance checking | ✅ |
-| 💵 Deposits | ✅ |
-| 💸 Withdrawals | ✅ |
-| 🔁 Transfers | 🚧 |
-| 💾 Persistent storage | 🚧 |
-| 🧪 Automated testing | 🚧 |
+| Account registration | ✅ Implemented |
+| Account numbers | ✅ Implemented |
+| PIN authentication | ✅ Implemented |
+| Login / Logout | ✅ Implemented |
+| Account information | ✅ Implemented |
+| Change PIN | ✅ Implemented |
+| View accounts | ✅ Implemented |
+| Delete accounts | ✅ Implemented |
+| Balance checking | 🚧 Not implemented |
+| Deposits | 🚧 Not implemented |
+| Withdrawals | 🚧 Not implemented |
+| Transfers | 🚧 Not implemented |
+| Persistent storage | 🚧 Not implemented |
 
----
-
- ## 📂 Project Structure
+## Project Structure
 
 ```
 assassin-cloud-atm_simulator/
-├── README.md
 └── atm-simulator/
     ├── main.cpp
     ├── function.cpp
     └── function.h
 ```
 
- | File | Purpose |
+ | File | Description |
 | --- | --- |
 | `main.cpp` | Main program loop and menu handling |
 | `function.cpp` | ATM and account functionality |
-| `function.h` | Function declarations and interfaces |
+| `function.h` | Function declarations |
 
----
+## Requirements
 
- ## ⚙️ Requirements
+ - C++ compiler
+- C++17 or newer recommended
 
- - **C++17** or newer
-- GCC, Clang, or MSVC
+ Supported compilers include GCC, Clang, and MSVC.
 
----
+ ## Installation
 
- ## 🚀 Installation
-
- ### Clone
+ Clone the repository:
 
 ```
 git clone <repository-url>
+```
+
+ Navigate to the project:
+
+```
 cd assassin-cloud-atm_simulator/atm-simulator
 ```
 
- ### Build
+ ## Build
 
- **Standard build**
+ Compile with GCC:
 
 ```
 g++ main.cpp function.cpp -std=c++17 -o atm-simulator
 ```
 
- **Debug build**
+ For a debug build:
 
 ```
-g++ main.cpp function.cpp \
-    -std=c++17 \
-    -Wall \
-    -Wextra \
-    -Wpedantic \
-    -g \
-    -o atm-simulator
+g++ main.cpp function.cpp -std=c++17 -Wall -Wextra -g -o atm-simulator
 ```
 
- **Sanitizer build**
-
-```
-g++ main.cpp function.cpp \
-    -std=c++17 \
-    -Wall \
-    -Wextra \
-    -Wpedantic \
-    -g \
-    -fsanitize=address,undefined \
-    -o atm-simulator
-```
-
----
-
- ## ▶️ Run
+ ## Run
 
  ### Linux / macOS
 
@@ -112,16 +114,16 @@ g++ main.cpp function.cpp \
 .\atm-simulator.exe
 ```
 
----
+ ## Usage
 
- ## 🖥️ Main Menu
+ The application starts with the following menu:
 
 ```
 ==========
    ATM
 ==========
 
-1. Login
+1. Sign in
 2. Account info
 3. Register(create a account)
 4. See all accounts on the device
@@ -129,241 +131,109 @@ g++ main.cpp function.cpp \
 6. Exit
 ```
 
----
+ > **Note:** Option 5 is currently not implemented.
 
- ## 💳 Account Management
+ ### Creating an Account
 
- ### Register
+ Select `3` from the main menu and provide:
 
- Create an account using:
+ - A unique account number
+- Your name
+- A PIN
 
- - Account number
-- Name
-- PIN
+ ### Signing In
 
- New accounts currently start with a balance of **$7000**.
-
- ### Login
-
- Authenticate using your:
-
- - Account number
-- PIN
+ Select `1` and provide the account number and PIN associated with the account.
 
  ### Account Information
 
- Once logged in:
+ After signing in, select `2` to access account information.
 
-```
-===================
-   ACCOUNT INFO
-===================
+ Available options include:
 
-Account Number: ...
-Account Name: ...
-
-1. Change Pin
-2. Log out
-3. Exit
-```
+ - Change PIN
+- Log out
+- Return to the main menu
 
  ### Account Management
 
- The application currently supports:
+ Select `4` from the main menu to view registered accounts.
 
- - Viewing registered accounts
-- Deleting accounts
-- Changing PINs
-- Logging in and out
+ Accounts can also be deleted from this menu.
 
----
+ ## Limitations
 
- ## 💰 Transactions
+ ### Account Limit
 
- Logged-in users can access:
+ The current implementation supports a maximum of **5 accounts**.
 
-```
-==========
-   ATM
-==========
+ ### Data Persistence
 
-1. Check your balance
-2. Deposit money
-3. Withdraw money
-4. Transfer money
-5. Exit
-```
+ Accounts are stored only in memory. All accounts are lost when the application closes.
 
- ### Implemented
-
- - Balance checking
-- Deposits
-- Withdrawals
-
- ### Coming Soon
-
- - Transfers
-- Transaction history
-- Improved transaction validation
-
----
-
- ## ⚠️ Limitations
-
- | Limitation | Current State |
-| --- | --- |
-| Maximum accounts | **5** |
-| Persistent storage | ❌ |
-| Database | ❌ |
-| Transfers | ❌ |
-| Transaction history | ❌ |
-| Automated tests | ❌ |
-| PIN hashing | ❌ |
-| Encryption | ❌ |
-
-Account data currently exists **only in memory** and is lost when the application exits.
-
----
-
- ## 🔐 Security
-
- This is an **educational project**, not a real banking application.
-
- PINs are currently stored directly in memory and are **not hashed or encrypted**.
-
- The project does not implement production-grade:
-
- - Authentication security
-- PIN hashing
-- Encryption
-- Account locking
-- Transaction security
-- Audit logging
-
- > **Never use real banking credentials, PINs, passwords, or financial information with this application.**
-
----
-
- ## 🧪 Testing
-
- Automated testing is currently being planned.
-
- Development builds can use compiler warnings and sanitizers:
-
-```
-g++ main.cpp function.cpp \
-    -std=c++17 \
-    -Wall \
-    -Wextra \
-    -Wpedantic \
-    -g \
-    -fsanitize=address,undefined \
-    -o atm-simulator
-```
-
- Planned testing:
-
- - [ ] Unit tests
-- [ ] Integration tests
-- [ ] Automated input tests
-- [ ] Regression tests
-- [ ] Memory-safety testing
-- [ ] CI testing
-
----
-
- ## 🛣️ Roadmap
-
- ### Account Management
-
- - [x] Account registration
-- [x] Unique account numbers
-- [x] Login / Logout
-- [x] Account information
-- [x] Change PIN
-- [x] Account deletion
-- [ ] Refactor account management
-
- ### Transactions
-
- - [x] Balance checking
-- [x] Deposits
-- [x] Withdrawals
-- [ ] Transfers
-- [ ] Transaction history
-
- ### Storage
-
- - [ ] File-based persistence
-- [ ] Save / load accounts
-- [ ] Database support
+ There is currently no file, database, or cloud storage.
 
  ### Security
 
- - [ ] PIN hashing
-- [ ] Secure authentication
-- [ ] Failed-login limits
-- [ ] Improved input validation
+ PINs are currently stored directly in memory and are not encrypted or hashed.
 
- ### Testing & Quality
+ This project should not be used with real banking credentials or sensitive financial information.
 
- - [ ] Unit testing
-- [ ] Integration testing
-- [ ] Regression testing
-- [ ] CI pipeline
+ ### Incomplete Features
+
+ The following features are planned but are not currently implemented:
+
+ - Balance management
+- Deposits
+- Withdrawals
+- Transfers
+- Persistent account storage
+
+ ## Development
+
+ The project is currently in active development.
+
+ Planned improvements include:
+
+ - [ ] Implement balance management
+- [ ] Implement deposits
+- [ ] Implement withdrawals
+- [ ] Implement transfers
+- [ ] Add persistent storage
+- [ ] Improve input validation
 - [ ] Improve error handling
-- [ ] Reduce duplicated code
-- [ ] Improve project architecture
+- [ ] Refactor account management
+- [ ] Add testing
+- [ ] Improve code structure
+- [ ] Prepare stable release
 
----
-
- ## 🧠 Learning Goals
-
- This project is being developed to practice:
-
- - C++ fundamentals
-- Functions
-- Arrays and data structures
-- Header/source organization
-- Input validation
-- Error handling
-- Debugging
-- Memory safety
-- Testing
-- Software development workflows
-
----
-
- ## 🤝 Contributing
+ ## Contributing
 
  Contributions, suggestions, and bug reports are welcome.
 
  For bug reports, include:
 
- - Description
-- Steps to reproduce
+ - Description of the issue
+- Steps to reproduce it
 - Expected behavior
 - Actual behavior
-- Operating system
-- Compiler and version
+- Compiler and operating system information
 - Relevant error messages
 
----
+ ## Disclaimer
 
- ## 📜 Disclaimer
-
- This project is an **educational ATM simulator**.
+ This project is an educational ATM simulator.
 
  It does not connect to real banking systems, process real money, or perform real financial transactions.
 
- **Do not use real financial information with this application.**
+ Do not use real banking credentials, PINs, passwords, or financial information with this application.
 
----
+ ## License
 
- ## 📄 License
+ No license has currently been specified for this project.
 
- No license has currently been specified.
+ ## Status
 
----
+ \<div align="center"\> **Pre-release · Active Development · Not Production Ready**
 
- \<p align="center"\> \<strong\>🏧 ATM Simulator\</strong\> \<br\> \<sub\>Pre-release · Active Development · Educational Project · Not Production Ready\</sub\> \</p\>
+ \</div\>
