@@ -205,7 +205,7 @@ g++ main.cpp function.cpp -std=c++17 -Wall -Wextra -g -o atm-simulator
 
  ### Account Limit
 
- The current implementation supports a maximum of **5 accounts**.
+ The current implementation supports a maximum of **10 accounts**.
 
  ### Data Persistence
 
