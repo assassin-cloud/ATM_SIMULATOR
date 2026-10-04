@@ -7,7 +7,7 @@ int main(){
     int numberofaccounts {};
     bool loggedin {false};
     int accountloggedinnumber {};
-    string accountloggedinname {}; 
+    string accountloggedinname {};
     int accountloggedinpin {};
     while(true){
         mainmenu();
@@ -31,9 +31,11 @@ int main(){
                         else{
                             if(userinput == 1){
                                 changepin(numberofaccounts, accountloggedinpin, accountloggedinnumber);
+                                wait();
                             }
                             else if(userinput == 2){
-                                changeaccountname(numberofaccounts, accountloggedinnumber);
+                                changeaccountname(numberofaccounts, accountloggedinnumber, accountloggedinname);
+                                wait();
                             }
                             else if(userinput == 3){
                                 loggedin = false;
