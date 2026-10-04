@@ -55,7 +55,7 @@ void add(int& numberofaccounts){
         else{
             bool duplicate {false};
             for(int i=0;i<numberofaccounts;i++){
-                if(account[numberofaccounts].accountnumber == account[i].accountnumber){
+                if(tempnumber == account[i].accountnumber){
                     duplicate = true;
                     break;
                 }
@@ -71,19 +71,21 @@ void add(int& numberofaccounts){
                 if(tempname.empty()){
                     cout << "Name can't be negative" << endl;
                 }
-                cout << "PIN:" << endl;
-                int temppin(takeinput());
-                if(temppin <= 0){
-                    cout << "Pin can't be negative" << endl;
-                }
                 else{
-                    account[numberofaccounts].accountnumber = tempnumber;
-                    account[numberofaccounts].name = tempname;
-                    account[numberofaccounts].pin = temppin;
-                    account[numberofaccounts].money = 7000;
-                    cout << "Account added successfully" << endl;
-                    cout << "Please login from the login option in main menu!" << endl;
-                    numberofaccounts+=1;
+                    cout << "PIN:" << endl;
+                    int temppin(takeinput());
+                    if(temppin <= 0){
+                        cout << "Pin can't be negative" << endl;
+                    }
+                    else{
+                        account[numberofaccounts].accountnumber = tempnumber;
+                        account[numberofaccounts].name = tempname;
+                        account[numberofaccounts].pin = temppin;
+                        account[numberofaccounts].money = 7000;
+                        cout << "Account added successfully" << endl;
+                        cout << "Please login from the login option in main menu!" << endl;
+                        numberofaccounts+=1;
+                    }
                 }
             }
             else{
@@ -180,7 +182,8 @@ void login(int numberofaccounts, bool& loggedin, int& accountloggedinnumber, str
         int account_index {};
         findaccount(numberofaccounts, number, iscorrectnumber, account_index);
         if(iscorrectnumber){
-            if(inputpin(accountloggedinpin)){
+            int pinforlogin {takeinput()};
+            if(pinforlogin == account[account_index].pin){
                 accountloggedinnumber = account[account_index].accountnumber;
                 accountloggedinname = account[account_index].name;
                 accountloggedinpin = account[account_index].pin;
