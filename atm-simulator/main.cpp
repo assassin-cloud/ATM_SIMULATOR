@@ -33,9 +33,12 @@ int main(){
                                 changepin(numberofaccounts, accountloggedinpin, accountloggedinnumber);
                             }
                             else if(userinput == 2){
-                                loggedin = false;
+                                changeaccountname(numberofaccounts, accountloggedinnumber);
                             }
                             else if(userinput == 3){
+                                loggedin = false;
+                            }
+                            else if(userinput == 4){
                                 break;
                             }
                             else{
@@ -67,7 +70,7 @@ int main(){
                         }
                         else{
                             if(userinput == 1){
-                                deleteaccount(numberofaccounts, loggedin, accountloggedinnumber, accountloggedinpin);
+                                deleteaccount(numberofaccounts, loggedin, accountloggedinnumber);
                             }
                             else if(userinput == 2){
                                 break;
