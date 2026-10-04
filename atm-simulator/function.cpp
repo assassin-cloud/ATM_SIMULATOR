@@ -23,9 +23,9 @@ int takeinput(){
 }
 
 void wait(){
-    cout << "Type anything to go back:" << endl;
-    string x;
-    cin >> x;
+    cout << "Press a key to continue..." << endl;
+    cin.ignore(1000, '\n');
+    cin.get();
 }
 
 void cinbugfix(){
@@ -48,9 +48,9 @@ void add(int& numberofaccounts){
     }
     else{
         cout << "Enter a unique number for your account:" << endl;
-        cin >> account[numberofaccounts].accountnumber;
-        if(account[numberofaccounts].accountnumber < 0){
-            cout << "Account number can't be negative!" << endl;
+        int tempnumber {takeinput()};
+        if(tempnumber <= 0){
+            cout << "Account number can't be negative or zero!" << endl;
         }
         else{
             bool duplicate {false};
@@ -66,13 +66,20 @@ void add(int& numberofaccounts){
             cin.ignore(1000, '\n');
             if(!duplicate){
                 cout << "Enter Name" << endl;
-                getline(cin, account[numberofaccounts].name);
+                string tempname {};
+                getline(cin, tempname);
+                if(tempname.empty()){
+                    cout << "Name can't be negative" << endl;
+                }
                 cout << "PIN:" << endl;
-                cin >> account[numberofaccounts].pin;
-                if(account[numberofaccounts].pin < 0){
+                int temppin(takeinput());
+                if(temppin <= 0){
                     cout << "Pin can't be negative" << endl;
                 }
                 else{
+                    account[numberofaccounts].accountnumber = tempnumber;
+                    account[numberofaccounts].name = tempname;
+                    account[numberofaccounts].pin = temppin;
                     account[numberofaccounts].money = 7000;
                     cout << "Account added successfully" << endl;
                     cout << "Please login from the login option in main menu!" << endl;
@@ -102,7 +109,7 @@ void showaccounts(int numberofaccounts){
     cout << "Input:" << endl;
 }
 
-bool inputpin(int accountloggedinpin, int numberofaccounts){
+bool inputpin(int accountloggedinpin){
     cout << "Input pin: " << endl;
     int pin {takeinput()};
     if(pin == accountloggedinpin){
@@ -126,7 +133,7 @@ void findaccount(int numberofaccounts, int accountloggedinnumber, bool& accountf
     }
 }
 
-void deleteaccount(int& numberofaccounts, bool& loggedin, int accountloggedinnumber){
+void deleteaccount(int& numberofaccounts, bool& loggedin, int& accountloggedinnumber, string& accountloggedinname, int& accountloggedinpin){
     if(numberofaccounts == 0){
         cout << "NO Account found, create one using register menu!" << endl;
     }
@@ -141,6 +148,9 @@ void deleteaccount(int& numberofaccounts, bool& loggedin, int accountloggedinnum
             int inputpin {takeinput()};
             if(inputpin == account[account_index].pin){
                 if(accountloggedinnumber == account[account_index].accountnumber){
+                    accountloggedinname.clear();
+                    accountloggedinnumber = 0;
+                    accountloggedinpin = 0;
                     loggedin = false;
                 }
                 for(int i=account_index;i<numberofaccounts-1;i++){
@@ -170,12 +180,12 @@ void login(int numberofaccounts, bool& loggedin, int& accountloggedinnumber, str
         int account_index {};
         findaccount(numberofaccounts, number, iscorrectnumber, account_index);
         if(iscorrectnumber){
-            accountloggedinnumber = account[account_index].accountnumber;
-            accountloggedinname = account[account_index].name;
-            accountloggedinpin = account[account_index].pin;
-            cout << "Account Number: " << account[account_index].accountnumber << endl;
-            cout << "Name: " << account[account_index].name << endl;
-            if(inputpin(accountloggedinpin, numberofaccounts)){
+            if(inputpin(accountloggedinpin)){
+                accountloggedinnumber = account[account_index].accountnumber;
+                accountloggedinname = account[account_index].name;
+                accountloggedinpin = account[account_index].pin;
+                cout << "Account Number: " << account[account_index].accountnumber << endl;
+                cout << "Name: " << account[account_index].name << endl;
                 loggedin = true;
                 cout << "Login attempt was successfull" << endl;
             }
@@ -204,7 +214,7 @@ void accountinfo(bool loggedin, int accountloggedinnumber, string accountloggedi
 }
 
 void changepin(int numberofaccounts, int& accountloggedinpin, int accountloggedinnumber){
-    if(inputpin(accountloggedinpin, numberofaccounts)){
+    if(inputpin(accountloggedinpin)){
         bool accountfound {false};
         int account_index {};
         findaccount(numberofaccounts, accountloggedinnumber, accountfound, account_index);
@@ -215,8 +225,8 @@ void changepin(int numberofaccounts, int& accountloggedinpin, int accountloggedi
                 cinbugfix();
             }
             else{
-                if(newpin < 0){
-                    cout << "Pin can't be negative" << endl;
+                if(newpin <= 0){
+                    cout << "Pin can't be negative or zero" << endl;
                 }
                 else{
                     cout << "Successfully Changed!" << endl;
@@ -234,7 +244,7 @@ void changepin(int numberofaccounts, int& accountloggedinpin, int accountloggedi
     }
 }
 
-void changeaccountname(int numberofaccounts, int accountloggedinnumber, string& accountloggedinname){
+void changeaccountname(int numberofaccounts, int accountloggedinnumber, string& accountloggedinname, int accountloggedinpin){
     int account_index {};
     bool accountfound {false};
     findaccount(numberofaccounts, accountloggedinnumber, accountfound, account_index);
@@ -243,13 +253,18 @@ void changeaccountname(int numberofaccounts, int accountloggedinnumber, string& 
         cout << "Input new name: " << endl;
         cin.ignore(1000, '\n');
         getline(cin, newname);
-        if(newname == account[account_index].name){
-            cout << "Please type a new account name" << endl;
+        if(newname == account[account_index].name || newname.empty()){
+            cout << "account name can't be empty or can't be the same as before" << endl;
         }
         else{
-            account[account_index].name = newname;
-            cout << "Name successfully changed" << endl;
-            accountloggedinname = account[account_index].name;
+            if(inputpin(accountloggedinpin)){
+                account[account_index].name = newname;
+                cout << "Name successfully changed" << endl;
+                accountloggedinname = account[account_index].name;
+            }
+            else{
+                cout << "Invalid Pin" << endl;
+            }
         }
     }
     else{
@@ -293,7 +308,7 @@ void depositmoney(int accountloggedinnumber, int numberofaccounts, int accountlo
             cout << "Amount can't be zero or negative!" << endl;
         }
         else{
-            if(inputpin(accountloggedinpin, numberofaccounts)){
+            if(inputpin(accountloggedinpin)){
                 account[account_index].money += ammount;
                 cout << "Amount successfully deposited" << endl;
                 cout << "Balance: " << "$" << account[account_index].money << endl;
@@ -319,9 +334,9 @@ void withdrawmoney(int accountloggedinnumber, int numberofaccounts, int accountl
             cout << "Amount can't be bigger than balance, amount can't be zero or negative" << endl;
         }
         else{
-            if(inputpin(accountloggedinpin, numberofaccounts)){
+            if(inputpin(accountloggedinpin)){
                 account[account_index].money -= ammount;
-                cout << "Amount successfully deposited" << endl;
+                cout << "Amount successfully withdrawn" << endl;
                 cout << "Balance: " << "$" << account[account_index].money << endl;
             }
             else{
@@ -354,34 +369,46 @@ void transfermoney(int accountloggedinnumber, int numberofaccounts, int accountl
                     cout << "Account found: " << endl;
                     cout << "Account Number: " << account[account_index2].accountnumber << endl;
                     cout << "Name: " << account[account_index2].name << endl;
-                    cout << "Is this correct account? type(y) to confirm, (n) if it's wrong or (q) to go back to main menu: " << endl;
+                    cout << "Is this correct account? type(y) to confirm, (n) if it's wrong or (q) to cancel: " << endl;
                     string userinput;
                     cin >> userinput;
                     if(userinput == "y"){ 
-                        if(inputpin(accountloggedinpin, numberofaccounts)){
-                            cout << "Input the amount you wanna transfer: " << endl;
-                            int ammount {takeinput()};
-                            if(ammount <= 0 || ammount > account[account_index].money){
-                                cout << "Amount can't be bigger than balance, ammount can't be zero or negative" << endl;
-                            }
-                            else{
-                                account[account_index].money -= ammount;
-                                account[account_index2].money += ammount;
-                                cout << "Successfully transfered" << endl;
-                                cout << account[account_index].name << " Transfered " << ammount << " to " << account[account_index2].name << endl;
-                                cout << "Balance: " << account[account_index].money << endl;
-                                break;
-                            }
+                        cout << "Input the amount you wanna transfer: " << endl;
+                        int ammount {takeinput()};
+                        if(ammount <= 0 || ammount > account[account_index].money){
+                            cout << "Amount can't be bigger than balance, ammount can't be zero or negative" << endl;
                         }
                         else{
-                            cout << "Invalid Pin" << endl;
-                            continue;
+                            cout << "confirm transfer $500 to " << account[account_index2].name << ":" << endl;
+                            string confirmation {};
+                            cin >> confirmation;
+                            if(confirmation == "y"){
+                                if(inputpin(accountloggedinpin)){
+                                    account[account_index].money -= ammount;
+                                    account[account_index2].money += ammount;
+                                    cout << "Successfully transfered" << endl;
+                                    cout << account[account_index].name << " Transfered " << ammount << " to " << account[account_index2].name << endl;
+                                    cout << "Balance: " << account[account_index].money << endl;
+                                    break;
+                                }
+                                else{
+                                    cout << "Invalid Pin" << endl;
+                                    break;
+                                }
+                            }
+                            else{
+                                break;
+                            }
                         }
                     }
                     else if(userinput == "q"){
                         break;
                     }
+                    else if(userinput == "n"){
+                        continue;
+                    }
                     else{
+                        cout << "Invalid Input" << endl;
                         continue;
                     }
                 }
