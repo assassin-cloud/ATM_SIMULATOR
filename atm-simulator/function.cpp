@@ -182,6 +182,7 @@ void login(int numberofaccounts, bool& loggedin, int& accountloggedinnumber, str
         int account_index {};
         findaccount(numberofaccounts, number, iscorrectnumber, account_index);
         if(iscorrectnumber){
+            cout << "Input Pin:" << endl;
             int pinforlogin {takeinput()};
             if(pinforlogin == account[account_index].pin){
                 accountloggedinnumber = account[account_index].accountnumber;
@@ -380,9 +381,10 @@ void transfermoney(int accountloggedinnumber, int numberofaccounts, int accountl
                         int ammount {takeinput()};
                         if(ammount <= 0 || ammount > account[account_index].money){
                             cout << "Amount can't be bigger than balance, ammount can't be zero or negative" << endl;
+                            break;
                         }
                         else{
-                            cout << "confirm transfer $500 to " << account[account_index2].name << ":" << endl;
+                            cout << "confirm transfer " << ammount << " to " << account[account_index2].name << ":" << endl;
                             string confirmation {};
                             cin >> confirmation;
                             if(confirmation == "y"){
