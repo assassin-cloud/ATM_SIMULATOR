@@ -34,10 +34,13 @@ int main(){
                                 wait();
                             }
                             else if(userinput == 2){
-                                changeaccountname(numberofaccounts, accountloggedinnumber, accountloggedinname);
+                                changeaccountname(numberofaccounts, accountloggedinnumber, accountloggedinname, accountloggedinpin);
                                 wait();
                             }
                             else if(userinput == 3){
+                                accountloggedinname.clear();
+                                accountloggedinnumber = 0;
+                                accountloggedinpin = 0;
                                 loggedin = false;
                             }
                             else if(userinput == 4){
@@ -72,7 +75,7 @@ int main(){
                         }
                         else{
                             if(userinput == 1){
-                                deleteaccount(numberofaccounts, loggedin, accountloggedinnumber);
+                                deleteaccount(numberofaccounts, loggedin, accountloggedinnumber, accountloggedinname, accountloggedinpin);
                             }
                             else if(userinput == 2){
                                 break;
