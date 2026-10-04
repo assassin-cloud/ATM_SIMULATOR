@@ -8,7 +8,7 @@ void mainmenu(){
     cout << "==========" << endl;
     cout << endl;
     cout << "1. Login" << endl;
-    cout << "2. Account info" << endl;
+    cout << "2. Account info/settings" << endl;
     cout << "3. Register(create a account)" << endl;
     cout << "4. See all accounts on the device" << endl;
     cout << "5. Check your balance, deposit, withdraw and transfer" << endl;
@@ -197,8 +197,9 @@ void accountinfo(bool loggedin, int accountloggedinnumber, string accountloggedi
     cout << "Account Number: " << accountloggedinnumber << endl;
     cout << "Account Name: " << accountloggedinname  << endl;
     cout << "1. Change Pin" << endl;
-    cout << "2. Log out" << endl;
-    cout << "3. Exit" << endl;
+    cout << "2. Change account name" << endl;
+    cout << "3. Log out" << endl;
+    cout << "4. Exit" << endl;
     cout << "Input: " << endl;
 }
 
@@ -209,18 +210,18 @@ void changepin(int numberofaccounts, int& accountloggedinpin, int accountloggedi
         findaccount(numberofaccounts, accountloggedinnumber, accountfound, account_index);
         if(accountfound){
             cout << "Input new pin:" << endl;
-            int pin {takeinput()};
+            int newpin {takeinput()};
             if(cin.fail()){
                 cinbugfix();
             }
             else{
-                if(pin < 0){
+                if(newpin < 0){
                     cout << "Pin can't be negative" << endl;
                 }
                 else{
                     cout << "Successfully Changed!" << endl;
-                    account[account_index].pin = pin;
-                    accountloggedinpin = pin;
+                    account[account_index].pin = newpin;
+                    accountloggedinpin = newpin;
                 }
             }
         }
@@ -230,6 +231,28 @@ void changepin(int numberofaccounts, int& accountloggedinpin, int accountloggedi
     }
     else{
         cout << "Wrong Pin" << endl;
+    }
+}
+
+void changeaccountname(int numberofaccounts, int accountloggedinnumber){
+    int account_index {};
+    bool accountfound {false};
+    findaccount(numberofaccounts, accountloggedinnumber, accountfound, account_index);
+    if(accountfound){
+        string newname {};
+        cout << "Input new name: " << endl;
+        cin.ignore(1000, '/n');
+        getline(cin, newname);
+        if(newname == account[account_index].name){
+            cout << "Please type a new account name" << endl;
+        }
+        else{
+            account[account_index].name = newname;
+            cout << "Name successfully changed" << endl;
+        }
+    }
+    else{
+        cout << "There is an issue with your account, trying logging out and logging in again" << endl;
     }
 }
 
