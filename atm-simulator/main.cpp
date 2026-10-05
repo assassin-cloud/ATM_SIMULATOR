@@ -9,6 +9,7 @@ int main(){
     int accountloggedinnumber {};
     string accountloggedinname {};
     int accountloggedinpin {};
+    int accountloggedinindex {};
     while(true){
         mainmenu();
         int userinput {takeinput()};
@@ -17,7 +18,7 @@ int main(){
         }
         else{
             if(userinput == 1){
-                login(numberofaccounts, loggedin, accountloggedinnumber, accountloggedinname, accountloggedinpin);
+                login(accountloggedinindex, numberofaccounts, loggedin, accountloggedinnumber, accountloggedinname, accountloggedinpin);
                 wait();
             }
             else if(userinput == 2){
@@ -30,11 +31,11 @@ int main(){
                         }
                         else{
                             if(userinput == 1){
-                                changepin(numberofaccounts, accountloggedinpin, accountloggedinnumber);
+                                changepin(accountloggedinindex, accountloggedinpin);
                                 wait();
                             }
                             else if(userinput == 2){
-                                changeaccountname(numberofaccounts, accountloggedinnumber, accountloggedinname, accountloggedinpin);
+                                changeaccountname(accountloggedinindex, accountloggedinname, accountloggedinpin);
                                 wait();
                             }
                             else if(userinput == 3){
@@ -97,19 +98,19 @@ int main(){
                         }
                         else{
                             if(userinput == 1){
-                                checkbalance(accountloggedinnumber, numberofaccounts);
+                                checkbalance(accountloggedinindex);
                                 wait();
                             }
                             else if(userinput == 2){
-                                depositmoney(accountloggedinnumber, numberofaccounts, accountloggedinpin);
+                                depositmoney(accountloggedinindex, accountloggedinpin);
                                 wait();
                             }
                             else if(userinput == 3){
-                                withdrawmoney(accountloggedinnumber, numberofaccounts, accountloggedinpin);
+                                withdrawmoney(accountloggedinindex, accountloggedinpin);
                                 wait();
                             }
                             else if(userinput == 4){
-                                transfermoney(accountloggedinnumber, numberofaccounts, accountloggedinpin);
+                                transfermoney(accountloggedinindex, numberofaccounts, accountloggedinpin);
                                 wait();
                             }
                             else if(userinput == 5){
