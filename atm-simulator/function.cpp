@@ -16,14 +16,8 @@ void mainmenu(){
     cout << "Input:" << endl;
 }
 
-int takeinput(){
-    int x;
-    cin >> x;
-    return x;
-}
-
 void wait(){
-    cout << "Press a key to continue..." << endl;
+    cout << "Press a Enter to continue..." << endl;
     cin.ignore(1000, '\n');
     cin.get();
 }
@@ -32,6 +26,12 @@ void cinbugfix(){
     cout << "Invalid Input" << endl;
     cin.clear();
     cin.ignore(1000, '\n');
+}
+
+int takeinput(){
+    int x;
+    cin >> x;
+    return x;
 }
 
 struct accounts{
@@ -79,7 +79,6 @@ void add(int& numberofaccounts){
                         break;
                     }
                 }
-                cin.ignore(1000, '\n');
                 if(!duplicate){
                     string variablefornumbercheck {to_string(tempnumber)};
                     if(variablefornumbercheck.size() != 8){
@@ -88,6 +87,7 @@ void add(int& numberofaccounts){
                     else{
                         cout << "Enter Name" << endl;
                         string tempname {};
+                        cin.ignore(1000, '\n');
                         getline(cin, tempname);
                         if(tempname.empty()){
                             cout << "Name can't be empty" << endl;
@@ -243,7 +243,7 @@ void login(int numberofaccounts, bool& loggedin, int& accountloggedinnumber, str
     }
 }
 
-void accountinfo(bool loggedin, int accountloggedinnumber, string accountloggedinname){
+void accountinfo(int accountloggedinnumber, string accountloggedinname){
     cout << "===================" << endl;
     cout << "   ACCOUNT INFO    " << endl;
     cout << "===================" << endl;
