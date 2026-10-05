@@ -42,54 +42,89 @@ struct accounts{
 };
 accounts account[10];
 
+void pinrules(){
+    cout << "   RULES    " << endl;
+    cout << "Limitation: zero at start of pin is removed e.g 0123 would be 123 or 000123 would be 123" << endl;
+    cout << "Pin can't be greater than 6 digits or less than 4 digits" << endl;
+    cout << "Pin should not contain any letter" << endl;
+}
+
+void accountnumberrules(){
+    cout << "   RULES    " << endl;
+    cout << "Limitation: zero at start of account number is removed e.g 0123 would be 123 or 000123 would be 123" << endl;
+    cout << "Account number should be 8 digits no more no less" << endl;
+    cout << "Account number should be unique and contain no special characters or letters" << endl;
+}
+
 void add(int& numberofaccounts){
     if(numberofaccounts == 10){
         cout << "Maximum numbers of accounts reached" << endl;
     }
     else{
+        accountnumberrules();
         cout << "Enter a unique number for your account:" << endl;
         int tempnumber {takeinput()};
-        if(tempnumber <= 0){
-            cout << "Account number can't be negative or zero!" << endl;
+        if(cin.fail()){
+            cinbugfix;
         }
         else{
-            bool duplicate {false};
-            for(int i=0;i<numberofaccounts;i++){
-                if(tempnumber == account[i].accountnumber){
-                    duplicate = true;
-                    break;
-                }
-                else{
-                    duplicate = false;
-                }
-            }
-            cin.ignore(1000, '\n');
-            if(!duplicate){
-                cout << "Enter Name" << endl;
-                string tempname {};
-                getline(cin, tempname);
-                if(tempname.empty()){
-                    cout << "Name can't be negative" << endl;
-                }
-                else{
-                    cout << "PIN:" << endl;
-                    int temppin(takeinput());
-                    if(temppin <= 0){
-                        cout << "Pin can't be negative" << endl;
-                    }
-                    else{
-                        account[numberofaccounts].accountnumber = tempnumber;
-                        account[numberofaccounts].name = tempname;
-                        account[numberofaccounts].pin = temppin;
-                        account[numberofaccounts].money = 7000;
-                        cout << "Account added successfully" << endl;
-                        cout << "Please login from the login option in main menu!" << endl;
-                        numberofaccounts+=1;
-                    }
-                }
+            if(tempnumber <= 0){
+                cout << "Account number can't be negative or zero!" << endl;
             }
             else{
-                cout << "Account number same as another account" << endl;
+                bool duplicate {false};
+                for(int i=0;i<numberofaccounts;i++){
+                    if(tempnumber == account[i].accountnumber){
+                        duplicate = true;
+                        break;
+                    }
+                }
+                cin.ignore(1000, '\n');
+                if(!duplicate){
+                    string variablefornumbercheck {to_string(tempnumber)};
+                    if(variablefornumbercheck.size() != 8){
+                        cout << "Error: Account number should be 8 digits" << endl;
+                    }
+                    else{
+                        cout << "Enter Name" << endl;
+                        string tempname {};
+                        getline(cin, tempname);
+                        if(tempname.empty()){
+                            cout << "Name can't be empty" << endl;
+                        }
+                        else{
+                            pinrules();
+                            cout << "PIN:" << endl;
+                            int temppin(takeinput());
+                            if(cin.fail()){
+                                cinbugfix();
+                            }
+                            else{
+                                if(temppin <= 0){
+                                    cout << "Pin can't be negative" << endl;
+                                }
+                                else{
+                                    string variableforpincheck {to_string(temppin)};
+                                    if(variableforpincheck.size() < 4 || variableforpincheck.size() > 6){
+                                        cout << "Error: Pin can't be less than 4 digits or greater than 6" << endl;
+                                    }
+                                    else{
+                                        account[numberofaccounts].accountnumber = tempnumber;
+                                        account[numberofaccounts].name = tempname;
+                                        account[numberofaccounts].pin = temppin;
+                                        account[numberofaccounts].money = 7000;
+                                        cout << "Account added successfully" << endl;
+                                        cout << "Please login from the login option in main menu!" << endl;
+                                        numberofaccounts+=1;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                else{
+                    cout << "Account number same as another account" << endl;
+                }
             }
         }
     }
@@ -129,9 +164,6 @@ void findaccount(int numberofaccounts, int accountloggedinnumber, bool& accountf
             accountfound = true;
             break;
         }
-        else{
-            accountfound = false;
-        }
     }
 }
 
@@ -149,17 +181,25 @@ void deleteaccount(int& numberofaccounts, bool& loggedin, int& accountloggedinnu
             cout << "Input pin: " << endl;
             int inputpin {takeinput()};
             if(inputpin == account[account_index].pin){
-                if(accountloggedinnumber == account[account_index].accountnumber){
-                    accountloggedinname.clear();
-                    accountloggedinnumber = 0;
-                    accountloggedinpin = 0;
-                    loggedin = false;
+                cout << "Confirm (y) to delete" << account[account_index].name << " account or revert (n) y/n:" << endl;
+                string confirmation;
+                cin >> confirmation;
+                if(confirmation == "y"){
+                    if(accountloggedinnumber == account[account_index].accountnumber){
+                        accountloggedinname.clear();
+                        accountloggedinnumber = 0;
+                        accountloggedinpin = 0;
+                        loggedin = false;
+                    }
+                    for(int i=account_index;i<numberofaccounts-1;i++){
+                        account[i] = account[i+1];
+                    }
+                    cout << "Successfully deleted" << endl;
+                    numberofaccounts--;
                 }
-                for(int i=account_index;i<numberofaccounts-1;i++){
-                    account[i] = account[i+1];
+                else if(confirmation != "n"){
+                    cout << "Invalid Input" << endl;
                 }
-                cout << "Successfully deleted" << endl;
-                numberofaccounts--;
             }
             else{
                 cout << "Invalid Pin!" << endl;
@@ -223,6 +263,7 @@ void changepin(int numberofaccounts, int& accountloggedinpin, int accountloggedi
         int account_index {};
         findaccount(numberofaccounts, accountloggedinnumber, accountfound, account_index);
         if(accountfound){
+            pinrules();
             cout << "Input new pin:" << endl;
             int newpin {takeinput()};
             if(cin.fail()){
@@ -233,9 +274,15 @@ void changepin(int numberofaccounts, int& accountloggedinpin, int accountloggedi
                     cout << "Pin can't be negative or zero" << endl;
                 }
                 else{
-                    cout << "Successfully Changed!" << endl;
-                    account[account_index].pin = newpin;
-                    accountloggedinpin = newpin;
+                    string variableforpincheck {to_string(newpin)};
+                    if(variableforpincheck.size() < 4 || variableforpincheck.size() > 6){
+                        cout << "Error: pin can't be greater than 6 or less than 4 digits" << endl;
+                    }
+                    else{
+                        cout << "Successfully Changed!" << endl;
+                        account[account_index].pin = newpin;
+                        accountloggedinpin = newpin;
+                    }
                 }
             }
         }
