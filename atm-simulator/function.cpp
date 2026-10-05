@@ -65,7 +65,7 @@ void add(int& numberofaccounts){
         cout << "Enter a unique number for your account:" << endl;
         int tempnumber {takeinput()};
         if(cin.fail()){
-            cinbugfix;
+            cinbugfix();
         }
         else{
             if(tempnumber <= 0){
