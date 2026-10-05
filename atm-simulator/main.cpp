@@ -23,7 +23,7 @@ int main(){
             else if(userinput == 2){
                 while(true){
                     if(loggedin){
-                        accountinfo(loggedin, accountloggedinnumber, accountloggedinname);
+                        accountinfo(accountloggedinnumber, accountloggedinname);
                         userinput = takeinput();
                         if(cin.fail()){
                             cinbugfix();
