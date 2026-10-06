@@ -1,164 +1,214 @@
-README.md
+```
+# 🏧 ATM Simulator
 
-# ATM Simulator
+ \<p align="center"\> \<strong\>A console-based ATM simulator written in C++\</strong\> \<br\> Built for learning, experimentation, and practicing C++ software development. \</p\> \<p align="center"\> \
+ \
+ \
 
- \<p align="center"\> \<strong\>A console-based ATM simulator written in C++\</strong\> \<br\> Built for learning, experimentation, and practicing C++ software development. \</p\> \<p align="center"\> \<img src="https://img.shields.io/badge/C%2B%2B-17%2B-00599C?style=for-the-badge&logo=cplusplus&logoColor=white" alt="C++17+"\> \<img src="https://img.shields.io/badge/Version-1.0.0-2ea44e?style=for-the-badge" alt="Version 1.0.0"\> \<img src="https://img.shields.io/badge/Status-Complete-22c55e?style=for-the-badge" alt="Complete"\> \<img src="https://img.shields.io/badge/Platform-Cross--Platform-6f42c1?style=for-the-badge" alt="Cross-platform"\> \</p\> > \[!NOTE\]\
+ \</p\> > \[!NOTE\]\
 >  **v1.0.0 is complete.** The current release provides the core ATM, account-management, authentication, administrator, and banking functionality. Future versions may improve security, persistence, testing, validation, architecture, and usability.
 
----
-
- ## 📖 Overview
-
- **ATM Simulator** is a console-based application written in **C++** that simulates basic ATM and account-management functionality.
-
- The application allows users to:
-
- - 🏦 Create standard and business accounts
-- 🔐 Log in using an account number and PIN
-- 👤 View and modify account information
-- 💰 Check account balances
-- 💵 Deposit money
-- 💸 Withdraw money
-- 🔄 Transfer money between accounts
-- 🔑 Change account PINs
-- 📝 Change account names
-- 🗑️ Delete accounts
-- 👑 Create and use an administrator account
-- 📋 View registered accounts as an administrator
-
- This project is intended for **educational purposes** and does not connect to real banking systems or process real financial transactions.
+ > \[!WARNING\]\
+>  This is an **educational ATM simulator**. It does not connect to real banking systems and must not be used with real banking credentials, PINs, passwords, or financial information.
 
 ---
+```
 
- ## ✨ Features
+ # 📑 Table of Contents
 
- ### 👤 Account Management
-
- - Account registration
-- Standard accounts
-- Business accounts
-- Unique account numbers
-- Account holder names
-- 4–6 digit PINs
-- Account name changes
-- PIN changes
-- Account deletion
-- Up to **1,000 accounts** in memory
-
- ### 🔐 Authentication
-
- - Account-number and PIN-based login
-- Logout functionality
-- PIN verification for sensitive operations
-- Prevention of multiple simultaneous logins
-
- ### 💳 Banking Operations
-
- - Check balance
-- Deposit money
-- Withdraw money
-- Transfer money
-- Destination account verification
-- Same-account transfer prevention
-- PIN confirmation for financial operations
-- Per-transaction limits
-
- ### 👑 Administrator
-
- - Administrator account creation
-- Administrator authentication
-- View registered accounts
-- Delete accounts
-- Single administrator account restriction
+ - 🏧 ATM Simulator
+- 📖 Overview
+- ✨ Features
+- 🏦 Account Types
+- 📊 Current Functionality
+- 📁 Project Structure
+- ⚙️ Requirements
+- 📥 Installation
+- 🔨 Build
+- ▶️ Run
+- 🖥️ Usage
+- 📝 Creating an Account
+- 🔢 Account Number Rules
+- 🔑 PIN Rules
+- 🔐 Login
+- 👤 Account Information
+- 💰 Banking Operations
+- 👑 Administrator Account
+- 📦 Account Capacity
+- 💾 Data Storage
+- 🔒 Security
+- 🧪 Input Validation
+- ⚠️ Known Limitations
+- 🧪 Testing
+- 🚀 Future Improvements
+- 🤝 Contributing
+- ⚖️ Disclaimer
+- 📄 License
+- 🏷️ Version
 
 ---
 
- ## 🏦 Account Types
+ # 📖 Overview
 
- The application currently supports three account types:
+ **ATM Simulator** is a console-based application written in **C++17** that simulates basic ATM and account-management functionality.
 
- | Account Type | Starting Balance | Transaction Limit |
+ The application provides a simple environment for creating and managing accounts while practicing:
+
+ - C++ functions
+- Header/source file organization
+- Input validation
+- Authentication logic
+- Account management
+- Banking operations
+- Conditional logic
+- Loops
+- Arrays
+- Basic application state management
+
+ > \[!TIP\]\
+>  The project is designed primarily as a **learning and experimentation project**, rather than a production banking application.
+
+---
+
+ # ✨ Features
+
+ ## 👤 Account Management
+
+ - ✅ Register accounts
+- ✅ Standard accounts
+- ✅ Business accounts
+- ✅ Unique account numbers
+- ✅ Account holder names
+- ✅ 4–6 digit PINs
+- ✅ Change account name
+- ✅ Change PIN
+- ✅ Delete accounts
+- ✅ Up to 1,000 accounts in memory
+
+ ## 🔐 Authentication
+
+ - ✅ Account-number and PIN login
+- ✅ Logout functionality
+- ✅ PIN verification
+- ✅ Login state tracking
+- ✅ Prevention of multiple simultaneous logins
+
+ ## 💳 Banking Operations
+
+ - ✅ Check balance
+- ✅ Deposit money
+- ✅ Withdraw money
+- ✅ Transfer money
+- ✅ Destination account verification
+- ✅ Same-account transfer prevention
+- ✅ PIN confirmation
+- ✅ Per-transaction limits
+
+ ## 👑 Administrator
+
+ - ✅ Create administrator account
+- ✅ Administrator authentication
+- ✅ View registered accounts
+- ✅ Delete accounts
+- ✅ Restrict administrator account creation to one account
+
+---
+
+ # 🏦 Account Types
+
+ The application currently supports three account types.
+
+ | 🏦 Account Type | 💵 Starting Balance | 💳 Transaction Limit |
 | --- | --- | --- |
-| 👤 Standard | `$7,000` | `$10,000` |
-| 💼 Business | `$7,000` | `$50,000` |
-| 👑 Admin | `$7,000` | `$100,000` |
+| 👤 **Standard** | `$7,000` | `$10,000` |
+| 💼 **Business** | `$7,000` | `$50,000` |
+| 👑 **Admin** | `$7,000` | `$100,000` |
 
-The transaction limit applies to individual:
-
- - Deposits
-- Withdrawals
-- Transfers
+> \[!NOTE\]\
+>  The transaction limit applies to individual deposits, withdrawals, and transfers.
 
 ---
 
- ## 📊 Current Functionality
+ # 📊 Current Functionality
 
  | Feature | Status |
 | --- | --- |
-| Account registration | ✅ Implemented |
-| Standard accounts | ✅ Implemented |
-| Business accounts | ✅ Implemented |
-| Unique account numbers | ✅ Implemented |
-| PIN authentication | ✅ Implemented |
-| Login / Logout | ✅ Implemented |
-| Account information | ✅ Implemented |
-| Change account name | ✅ Implemented |
-| Change PIN | ✅ Implemented |
-| Account deletion | ✅ Implemented |
-| Balance checking | ✅ Implemented |
-| Deposits | ✅ Implemented |
-| Withdrawals | ✅ Implemented |
-| Transfers | ✅ Implemented |
-| Administrator account | ✅ Implemented |
-| Administrator account listing | ✅ Implemented |
-| Administrator account deletion | ✅ Implemented |
-| Persistent storage | ❌ Not implemented |
-| Automated testing | ❌ Not implemented |
-| Transaction history | ❌ Not implemented |
+| Account registration | 🟢 Implemented |
+| Standard accounts | 🟢 Implemented |
+| Business accounts | 🟢 Implemented |
+| Unique account numbers | 🟢 Implemented |
+| PIN authentication | 🟢 Implemented |
+| Login / Logout | 🟢 Implemented |
+| Account information | 🟢 Implemented |
+| Change account name | 🟢 Implemented |
+| Change PIN | 🟢 Implemented |
+| Account deletion | 🟢 Implemented |
+| Balance checking | 🟢 Implemented |
+| Deposits | 🟢 Implemented |
+| Withdrawals | 🟢 Implemented |
+| Transfers | 🟢 Implemented |
+| Administrator account | 🟢 Implemented |
+| Administrator account listing | 🟢 Implemented |
+| Administrator account deletion | 🟢 Implemented |
+| Persistent storage | 🔴 Not implemented |
+| Automated testing | 🔴 Not implemented |
+| Transaction history | 🔴 Not implemented |
+| Database | 🔴 Not implemented |
 
 ---
 
- ## 📁 Project Structure
+ # 📁 Project Structure
 
 ```
 assassin-cloud-atm_simulator/
-├── README.md
-└── atm-simulator/
-    ├── main.cpp
-    ├── function.cpp
-    └── function.h
+│
+├── 📄 README.md
+│
+└── 📁 atm-simulator/
+    │
+    ├── 📄 main.cpp
+    ├── 📄 function.cpp
+    └── 📄 function.h
 ```
+
+ ## 📄 File Description
 
  | File | Description |
 | --- | --- |
 | `main.cpp` | Main application loop, menus, login state, and program flow |
 | `function.cpp` | ATM functionality, account management, authentication, and banking operations |
 | `function.h` | Function declarations used by the application |
+| `README.md` | Project documentation |
 
 ---
 
- ## ⚙️ Requirements
+ # ⚙️ Requirements
+
+ ## 💻 Software
 
  - C++ compiler
-- **C++17 or newer** recommended
+- C++17 or newer
 
- ### Supported Compilers
+ ## 🛠️ Supported Compilers
 
- - GCC
-- Clang
-- MSVC
+ - **GCC**
+- **Clang**
+- **MSVC**
+
+ > \[!IMPORTANT\]\
+>  C++17 is recommended because the current implementation uses modern C++ features such as uniform initialization.
 
 ---
 
- ## 📥 Installation
+ # 📥 Installation
 
- ### 1\. Clone the Repository
+ ## 1️⃣ Clone the Repository
 
 ```
 git clone <repository-url>
 ```
 
- ### 2\. Navigate to the Project
+ ## 2️⃣ Enter the Project Directory
 
 ```
 cd assassin-cloud-atm_simulator/atm-simulator
@@ -166,31 +216,46 @@ cd assassin-cloud-atm_simulator/atm-simulator
 
 ---
 
- ## 🔨 Build
+ # 🔨 Build
 
- ### Standard Build
+ ## 🟢 Standard Build
+
+ ### GCC / Clang
 
 ```
 g++ main.cpp function.cpp -std=c++17 -o atm-simulator
 ```
 
- ### Debug Build
+ ## 🐛 Debug Build
 
 ```
 g++ main.cpp function.cpp -std=c++17 -Wall -Wextra -g -o atm-simulator
 ```
 
+ ### Build Options
+
+ | Option | Purpose |
+| --- | --- |
+| `-std=c++17` | Enable C++17 |
+| `-Wall` | Enable common warnings |
+| `-Wextra` | Enable additional warnings |
+| `-g` | Add debugging information |
+| `-o atm-simulator` | Name the output executable |
+
+> \[!TIP\]\
+>  For development, the debug build is recommended because compiler warnings can help identify potential problems in the code.
+
 ---
 
- ## ▶️ Run
+ # ▶️ Run
 
- ### 🐧 Linux / 🍎 macOS
+ ## 🐧 Linux / 🍎 macOS
 
 ```
 ./atm-simulator
 ```
 
- ### 🪟 Windows
+ ## 🪟 Windows
 
 ```
 .\atm-simulator.exe
@@ -200,7 +265,7 @@ g++ main.cpp function.cpp -std=c++17 -Wall -Wextra -g -o atm-simulator
 
  # 🖥️ Usage
 
- When the application starts, the main menu is displayed:
+ When the program starts, the following main menu is displayed:
 
 ```
 ==========
@@ -218,11 +283,12 @@ g++ main.cpp function.cpp -std=c++17 -Wall -Wextra -g -o atm-simulator
 Input:
 ```
 
- Some options require an authenticated account.
+ > \[!NOTE\]\
+>  Several menu options require a user to be logged in first.
 
 ---
 
- ## 📝 Creating an Account
+ # 📝 Creating an Account
 
  Select:
 
@@ -230,42 +296,45 @@ Input:
 3. Register(create a account)
 ```
 
- You will first select an account type:
+ The application asks you to select an account type:
 
 ```
 Please select account type:
-1. Standard    2. Business
+
+1. Standard
+2. Business
 ```
 
- You must then provide:
+ After selecting the account type, you must provide:
 
- 1. A unique account number
-2. Your name
-3. A PIN
+ - 🔢 Account number
+- 👤 Account name
+- 🔑 PIN
 
- New accounts start with a balance of:
+ New accounts start with:
 
 ```
-$7000
+$7,000
 ```
 
 ---
 
- ## 🔢 Account Number Rules
+ # 🔢 Account Number Rules
 
- Account numbers:
+ Account numbers must:
 
- - Must be positive
-- Must contain exactly **6 digits**
-- Must be unique
-- Cannot contain letters
-- Cannot contain special characters
+ - ✅ Be positive
+- ✅ Contain exactly **6 digits**
+- ✅ Be unique
+- ❌ Not contain letters
+- ❌ Not contain special characters
+- ❌ Not be zero or negative
 
- ### ⚠️ Leading Zeros
+ ## ⚠️ Leading Zeros
 
- Account numbers are stored as integers.
+ Account numbers are stored using an `int`.
 
- Therefore, leading zeros are removed automatically.
+ This means leading zeros are automatically removed.
 
  For example:
 
@@ -279,22 +348,32 @@ $7000
 12345
 ```
 
- This means `012345` will **not** satisfy the 6-digit requirement.
+ Therefore:
+
+```
+012345
+```
+
+ is **not accepted** as a valid 6-digit account number.
+
+ > \[!WARNING\]\
+>  Account numbers are not stored as strings, so leading zeros cannot be preserved.
 
 ---
 
- ## 🔑 PIN Rules
+ # 🔑 PIN Rules
 
- PINs:
+ PINs must:
 
- - Must contain **4–6 digits**
-- Must be positive
-- Cannot contain letters
-- Are stored as integers
+ - ✅ Contain between **4 and 6 digits**
+- ✅ Be positive
+- ❌ Not contain letters
+- ❌ Not be zero
+- ❌ Not contain special characters
 
- ### ⚠️ Leading Zeros
+ ## ⚠️ Leading Zeros
 
- PINs are also stored as integers.
+ PINs are stored using an `int`.
 
  For example:
 
@@ -310,6 +389,9 @@ $7000
 
  Therefore, it does not satisfy the minimum 4-digit requirement.
 
+ > \[!WARNING\]\
+>  PINs are stored as integers and are not hashed or encrypted.
+
 ---
 
  # 🔐 Login
@@ -320,14 +402,29 @@ $7000
 1. Login
 ```
 
- Enter:
+ The application asks for:
 
- 1. Account number
-2. PIN
+```
+Account Number:
+PIN:
+```
 
- If the credentials match an existing account, the user is logged in.
+ If both credentials match an existing account:
 
- Only one account can be logged in at a time.
+```
+Login attempt was successfull
+```
+
+ The application stores the logged-in account's:
+
+ - Account number
+- Name
+- PIN
+- Account type
+- Account index
+
+ > \[!NOTE\]\
+>  Only one account can be logged in at a time.
 
 ---
 
@@ -339,7 +436,7 @@ $7000
 2. Account info/settings
 ```
 
- The account information menu provides:
+ The account information menu looks like:
 
 ```
 ===================
@@ -359,15 +456,33 @@ Account Name: ...
 Input:
 ```
 
- ### Available Operations
+ ## Available Operations
 
- - 🔑 Change PIN
-- 📝 Change account name
-- 🚪 Log out
-- 🗑️ Delete account
-- ↩️ Return to the main menu
+ ### 🔑 Change PIN
 
- PIN verification is required for sensitive account operations.
+ The current PIN must be entered before setting a new PIN.
+
+ The new PIN must follow the normal PIN rules.
+
+ ### 📝 Change Account Name
+
+ The user can provide a new account name.
+
+ The name:
+
+ - Cannot be empty
+- Cannot be identical to the current name
+- Requires PIN verification
+
+ ### 🚪 Log Out
+
+ Logs the current account out and clears the active login information.
+
+ ### 🗑️ Delete Account
+
+ The current PIN is required before deleting the account.
+
+ The user must then confirm the deletion.
 
 ---
 
@@ -397,7 +512,7 @@ Input:
 
 ---
 
- ## 💵 Check Balance
+ # 💵 Check Balance
 
  Select:
 
@@ -405,7 +520,7 @@ Input:
 1. Check your balance
 ```
 
- The current account balance will be displayed.
+ The application displays the current balance.
 
  Example:
 
@@ -415,7 +530,7 @@ Balance: $7000
 
 ---
 
- ## 💰 Deposit Money
+ # 💰 Deposit Money
 
  Select:
 
@@ -423,15 +538,30 @@ Balance: $7000
 2. Deposit money
 ```
 
- The application checks that:
+ The application asks for the amount.
 
- - The amount is greater than zero
-- The amount does not exceed the account transaction limit
-- The correct PIN is entered
+ The following checks are performed:
+
+ - Amount must be greater than `0`
+- Amount cannot exceed the account transaction limit
+- Correct PIN must be provided
+
+ Example:
+
+```
+Input the amount you wanna deposit:
+```
+
+ After a successful deposit:
+
+```
+Amount successfully deposited
+Balance: $9000
+```
 
 ---
 
- ## 💸 Withdraw Money
+ # 💸 Withdraw Money
 
  Select:
 
@@ -439,16 +569,29 @@ Balance: $7000
 3. Withdraw money
 ```
 
- The application checks that:
+ The application checks:
 
- - The amount is greater than zero
-- The amount does not exceed the current balance
-- The amount does not exceed the account transaction limit
-- The correct PIN is entered
+ - Amount must be greater than `0`
+- Amount cannot exceed the current balance
+- Amount cannot exceed the transaction limit
+- Correct PIN must be provided
+
+ Example:
+
+```
+Input the amount you wanna withdraw
+```
+
+ After a successful withdrawal:
+
+```
+Amount successfully withdrawn
+Balance: $5000
+```
 
 ---
 
- ## 🔄 Transfer Money
+ # 🔄 Transfer Money
 
  Select:
 
@@ -456,31 +599,39 @@ Balance: $7000
 4. Transfer money
 ```
 
- The transfer process:
+ The application requests the destination account number.
 
- 1. Enter the destination account number.
-2. Verify that the destination account exists.
-3. Prevent transfers to the same account.
-4. Display the destination account information.
-5. Confirm the destination account.
-6. Enter the transfer amount.
-7. Check the available balance.
-8. Check the transaction limit.
-9. Confirm the transfer.
-10. Enter the PIN.
-11. Complete the transfer.
-
- Example:
+ ## Transfer Process
 
 ```
-Account found:
-
-Account Number: 123456
-Name: John
-
-Is this correct account?
-type(y) to confirm, (n) if it's wrong or (q) to cancel:
+1. Enter destination account number
+        ↓
+2. Find destination account
+        ↓
+3. Display destination information
+        ↓
+4. Confirm destination
+        ↓
+5. Enter transfer amount
+        ↓
+6. Check balance
+        ↓
+7. Check transaction limit
+        ↓
+8. Confirm transfer
+        ↓
+9. Enter PIN
+        ↓
+10. Complete transfer
 ```
+
+ The application prevents:
+
+ - ❌ Transfers to non-existent accounts
+- ❌ Transfers to the same account
+- ❌ Transfers greater than the current balance
+- ❌ Transfers above the transaction limit
+- ❌ Transfers with an incorrect PIN
 
 ---
 
@@ -488,34 +639,40 @@ type(y) to confirm, (n) if it's wrong or (q) to cancel:
 
  The application contains a basic administrator system.
 
- An administrator account can be created through:
+ An administrator account can be created using:
 
 ```
 6. Register a Admin account
 ```
 
- The application requires a special setup PIN before creating the administrator account.
+ A special setup PIN is required before the administrator account can be created.
 
  > \[!WARNING\]\
->  Administrator credentials and the administrator setup PIN are hard-coded in the current source code. This is acceptable for the educational nature of the project but is **not secure for real-world software**.
+>  The administrator setup credentials are **hard-coded in the source code**. This is not secure and is intended only for this educational project.
 
- Only **one administrator account** can exist.
+---
 
- ### Current Administrator Account
+ # 🛡️ Administrator Details
+
+ The current administrator account uses:
 
  | Property | Value |
 | --- | --- |
 | Account Type | `Admin` |
 | Account Number | `11111111` |
-| Name | `Admin` |
+| Account Name | `Admin` |
 | Starting Balance | `$7,000` |
 | Transaction Limit | `$100,000` |
 
+Only one administrator account can exist.
+
+ If an administrator already exists, another administrator cannot be created.
+
 ---
 
- ## 🛡️ Administrator Features
+ # 📋 Administrator Features
 
- When logged in as an administrator, option:
+ When an administrator is logged in, option:
 
 ```
 4. See all accounts on the device
@@ -540,13 +697,18 @@ Account Number: 123456
 Name: John
 ```
 
- The administrator then has the option to delete an account or exit.
+ The administrator can then choose:
+
+```
+1. Delete account
+2. Exit
+```
 
 ---
 
  # 📦 Account Capacity
 
- Accounts are stored in a fixed-size array:
+ The application stores accounts in a fixed-size array:
 
 ```
 accounts account[1000];
@@ -556,196 +718,268 @@ accounts account[1000];
 
  > **1,000 accounts**
 
- No database or dynamic persistent storage is currently used.
+ > \[!NOTE\]\
+>  This is an in-memory limit. There is currently no database or persistent account storage.
 
 ---
 
  # 💾 Data Storage
 
- All account information is stored **only in memory**.
+ The application currently stores all account information **in memory**.
 
- When the program exits, all data is lost.
+ When the application closes, all account information is lost.
 
- This includes:
+ ### Data Lost on Exit
 
- - Account numbers
-- Account names
-- PINs
-- Account types
-- Balances
-- Account changes
+ - 🔢 Account numbers
+- 👤 Account names
+- 🔑 PINs
+- 🏦 Account types
+- 💰 Balances
+- 📊 Account changes
 
- There is currently no:
+ ### Current Storage
 
- - ❌ File storage
-- ❌ Database
-- ❌ Cloud storage
-- ❌ Serialization
-- ❌ Data recovery
+ | Storage Method | Status |
+| --- | --- |
+| Memory | ✅ Used |
+| Text files | ❌ Not implemented |
+| Binary files | ❌ Not implemented |
+| Database | ❌ Not implemented |
+| Cloud storage | ❌ Not implemented |
+
+> \[!IMPORTANT\]\
+>  Restarting the application starts with an empty account list.
 
 ---
 
  # 🔒 Security
 
- This project is an **educational ATM simulator** and should not be used for real banking information.
+ This project should **not** be considered secure banking software.
 
- The current implementation has several security limitations.
+ It is designed only as an educational C++ project.
 
- ### Current Security Limitations
+ ## Current Security Limitations
 
- - PINs are stored directly in memory.
-- PINs are not hashed.
-- PINs are not encrypted.
-- Administrator credentials are hard-coded.
-- Administrator setup credentials are hard-coded.
-- There is no login attempt limit.
-- There is no account lockout.
-- There is no encryption.
-- There is no secure persistent storage.
-- There is no audit logging.
-- There is no transaction history.
+ - 🔴 PINs are stored directly in memory
+- 🔴 PINs are not hashed
+- 🔴 PINs are not encrypted
+- 🔴 Administrator credentials are hard-coded
+- 🔴 Administrator setup PIN is hard-coded
+- 🔴 No login attempt limit
+- 🔴 No account lockout
+- 🔴 No encryption
+- 🔴 No secure persistent storage
+- 🔴 No audit logging
+- 🔴 No transaction history
+- 🔴 No secure session management
 
  > \[!CAUTION\]\
->  **Do not use real banking credentials, PINs, passwords, or financial information with this application.**
+>  **Never use a real banking PIN, password, account number, or financial information with this application.**
 
 ---
 
  # 🧪 Input Validation
 
- The application currently performs basic validation for:
+ The current implementation performs basic input validation.
 
- - Menu choices
-- Account numbers
-- Duplicate account numbers
-- Account names
-- PIN length
-- Positive monetary amounts
-- Available account balance
-- Transaction limits
-- Destination account existence
-- Same-account transfers
-- Incorrect PINs
-- Invalid numeric input
+ ## Validated Input
 
- Invalid numeric input is handled through a basic input recovery function.
+ - ✅ Menu selections
+- ✅ Account numbers
+- ✅ Duplicate account numbers
+- ✅ Account names
+- ✅ PIN length
+- ✅ Positive monetary amounts
+- ✅ Account balances
+- ✅ Transaction limits
+- ✅ Destination accounts
+- ✅ Same-account transfers
+- ✅ PIN verification
+- ✅ Invalid numeric input
 
- Input validation can still be improved substantially in future versions.
+ The application also contains a basic input-recovery function for invalid numeric input.
+
+ > \[!NOTE\]\
+>  Input validation is functional but remains relatively basic and can be improved in future releases.
 
 ---
 
  # ⚠️ Known Limitations
 
- The current implementation has several limitations.
+ ## 💾 No Persistent Storage
 
- ### 💾 No Persistence
+ Accounts are deleted from memory when the program exits.
 
- All data is lost when the application exits.
+ ## 🔢 Integer Account Numbers
 
- ### 🔢 Integer Account Numbers
+ Account numbers use `int`, so leading zeros cannot be preserved.
 
- Account numbers are stored as integers, so leading zeros cannot be preserved.
+ ## 🔑 Integer PINs
 
- ### 🔑 Integer PINs
+ PINs use `int`, so leading zeros cannot be preserved.
 
- PINs are stored as integers, so leading zeros cannot be preserved.
+ ## 💵 Integer Currency
 
- ### 💵 Integer Currency
+ Money values use `int`.
 
- Money values use `int`, so decimal amounts such as:
+ The application therefore does not support decimal values such as:
 
 ```
 $25.50
 ```
 
- are not supported.
+ ## 🧪 No Automated Tests
 
- ### 🌍 No Real Banking Integration
+ Testing is currently performed manually.
 
- The application does not communicate with banks or financial services.
+ ## 🔐 Basic Authentication
 
- ### 🧪 No Automated Tests
+ The authentication system is intentionally simple.
 
- Testing is currently performed manually through the console.
+ ## 🧾 No Transaction History
 
- ### 🔐 Basic Authentication
+ The application does not store previous transactions.
 
- Authentication is intentionally simple and is not suitable for real-world financial applications.
+ ## 🌐 No Banking Integration
 
- ### 🌐 No Transaction History
+ The simulator does not connect to real banks or financial services.
 
- The application does not record previous deposits, withdrawals, or transfers.
+ ## 🗃️ Global Account Array
 
- ### 🗃️ Global Account Storage
+ Accounts are stored using a global fixed-size array:
 
- Account information is currently managed through a global fixed-size array.
+```
+accounts account[1000];
+```
 
- ### 🏗️ Basic Architecture
+ ## 🏗️ Procedural Architecture
 
- The project currently uses procedural functions rather than a fully object-oriented architecture.
+ Most functionality is implemented using standalone functions rather than dedicated classes.
 
 ---
 
  # 🧪 Testing
 
- Automated tests have not yet been added.
+ Automated tests have not yet been implemented.
 
  Testing is currently performed manually through the console.
 
- Important test scenarios include:
+ ## ✅ Recommended Test Cases
+
+ ### Account Creation
 
  - [ ] Create a standard account
 - [ ] Create a business account
-- [ ] Create a duplicate account number
-- [ ] Enter an invalid account number
+- [ ] Create duplicate account number
+- [ ] Enter a short account number
+- [ ] Enter a long account number
+- [ ] Enter a negative account number
+- [ ] Enter an empty account name
 - [ ] Enter an invalid PIN
-- [ ] Login with valid credentials
-- [ ] Login with invalid credentials
-- [ ] Change PIN
+- [ ] Create an account successfully
+
+ ### Authentication
+
+ - [ ] Login with valid credentials
+- [ ] Login with incorrect account number
+- [ ] Login with incorrect PIN
+- [ ] Attempt login while already logged in
+- [ ] Logout successfully
+
+ ### Account Management
+
+ - [ ] Change PIN
 - [ ] Change account name
-- [ ] Delete account
-- [ ] Check balance
+- [ ] Delete current account
+- [ ] Cancel account deletion
+
+ ### Banking
+
+ - [ ] Check balance
 - [ ] Deposit money
+- [ ] Deposit zero
+- [ ] Deposit negative amount
+- [ ] Exceed deposit limit
 - [ ] Withdraw money
-- [ ] Attempt to withdraw more than the balance
-- [ ] Attempt to exceed transaction limits
+- [ ] Withdraw more than balance
+- [ ] Withdraw zero
+- [ ] Withdraw negative amount
+- [ ] Exceed withdrawal limit
 - [ ] Transfer money
-- [ ] Transfer to an invalid account
-- [ ] Transfer to the same account
-- [ ] Cancel a transfer
-- [ ] Create administrator account
-- [ ] Attempt to create a second administrator
-- [ ] View accounts as administrator
-- [ ] Delete an account as administrator
-- [ ] Enter invalid menu input
+- [ ] Transfer to invalid account
+- [ ] Transfer to same account
+- [ ] Transfer more than balance
+- [ ] Exceed transfer limit
+- [ ] Cancel transfer
+- [ ] Enter incorrect PIN
+
+ ### Administrator
+
+ - [ ] Create administrator account
+- [ ] Enter incorrect administrator setup PIN
+- [ ] Attempt to create second administrator
+- [ ] Login as administrator
+- [ ] View accounts
+- [ ] Delete an account
 
 ---
 
  # 🚀 Future Improvements
 
- Planned improvements include:
+ ## 💾 Storage
 
  - [ ] Add persistent file storage
 - [ ] Add database support
-- [ ] Add automated unit tests
-- [ ] Improve input validation
-- [ ] Improve error handling
-- [ ] Introduce an `Account` class
-- [ ] Introduce an `ATM` or `Bank` class
-- [ ] Remove global account storage
-- [ ] Improve authentication
-- [ ] Hash PINs
+- [ ] Add account serialization
+- [ ] Add automatic data loading
+- [ ] Add automatic data saving
+
+ ## 🔐 Security
+
+ - [ ] Hash PINs
 - [ ] Remove hard-coded administrator credentials
+- [ ] Add secure authentication
 - [ ] Add login attempt limits
-- [ ] Add account locking
-- [ ] Add transaction history
+- [ ] Add account lockout
+- [ ] Add secure session management
+- [ ] Add audit logs
+
+ ## 🏗️ Architecture
+
+ - [ ] Introduce an `Account` class
+- [ ] Introduce an `ATM` class
+- [ ] Introduce a `Bank` class
+- [ ] Remove global account storage
+- [ ] Improve separation of responsibilities
+- [ ] Improve error handling
+
+ ## 💳 Banking
+
+ - [ ] Add transaction history
 - [ ] Add transaction timestamps
+- [ ] Add transaction IDs
 - [ ] Add decimal currency support
-- [ ] Add better transaction management
-- [ ] Improve console interface
-- [ ] Improve documentation
-- [ ] Add continuous integration
+- [ ] Add daily transaction limits
+- [ ] Add account-specific limits
+- [ ] Add account statements
+
+ ## 🧪 Testing
+
+ - [ ] Add unit tests
+- [ ] Add integration tests
+- [ ] Add automated test builds
 - [ ] Add code coverage
-- [ ] Add a proper testing framework
+- [ ] Add CI/CD
+
+ ## 🎨 User Experience
+
+ - [ ] Improve console interface
+- [ ] Add better error messages
+- [ ] Improve menu navigation
+- [ ] Add colored terminal output
+- [ ] Add clearer prompts
+- [ ] Improve documentation
 
 ---
 
@@ -753,78 +987,111 @@ $25.50
 
  Contributions, suggestions, and bug reports are welcome.
 
- ## 🐛 Bug Reports
+ ## 🐛 Reporting Bugs
 
- When reporting a bug, include:
+ Please include:
 
  - Description of the issue
-- Steps to reproduce it
+- Steps to reproduce
 - Expected behavior
 - Actual behavior
-- Compiler information
+- Compiler
 - Operating system
-- Relevant error messages
+- Error messages
 
- Example:
+ ### Example
 
 ```
 ### Bug Description
 
-The application crashes after entering invalid input during a transfer.
+The application does not correctly handle invalid input during a transfer.
 
 ### Steps to Reproduce
 
 1. Login
-2. Open banking menu
+2. Open the banking menu
 3. Select transfer
 4. Enter invalid input
 
 ### Expected Behavior
 
-The application should display an error and continue running.
+The application should reject the input and continue running.
 
 ### Actual Behavior
 
-The application terminates unexpectedly.
+The application exits unexpectedly.
 ```
+
+---
+
+ # 📜 Development Guidelines
+
+ When contributing:
+
+ - Keep the code compatible with C++17.
+- Avoid unnecessary global state where possible.
+- Validate user input.
+- Keep functions focused on one responsibility.
+- Update the README when functionality changes.
+- Test new features before submitting changes.
+- Do not add real banking credentials or sensitive information.
 
 ---
 
  # ⚖️ Disclaimer
 
- This project is an **educational ATM simulator**.
-
- It does **not**:
-
- - Connect to real banking systems
-- Process real money
-- Store real financial accounts
-- Provide real banking services
-- Provide secure financial authentication
-
  > \[!WARNING\]\
->  **Never use real banking credentials, PINs, passwords, or financial information with this application.**
+>  **This project is an educational ATM simulator and is not real banking software.**
+
+ The application does **not**:
+
+ - ❌ Connect to real banking systems
+- ❌ Process real money
+- ❌ Store real financial accounts
+- ❌ Provide real banking services
+- ❌ Provide secure financial authentication
+- ❌ Guarantee the security of stored information
+
+ Do not use:
+
+ - Real banking credentials
+- Real PINs
+- Real passwords
+- Real account numbers
+- Real financial information
 
 ---
 
  # 📄 License
 
- No license has currently been specified for this project.
+ > \[!NOTE\]\
+>  No license has currently been specified for this project.
 
 ---
 
  # 🏷️ Version
 
- **v1.0.0 — Complete**
+ ## `v1.0.0 — Complete`
 
- The first version of **ATM Simulator** provides the core account-management, authentication, administrator, and banking functionality implemented in the current source code.
+ The first version of **ATM Simulator** provides the core:
+
+ - 🏦 Account management
+- 🔐 Authentication
+- 👤 User accounts
+- 💼 Business accounts
+- 👑 Administrator accounts
+- 💰 Deposits
+- 💸 Withdrawals
+- 🔄 Transfers
+- 🗑️ Account deletion
+- 📋 Account management
 
  Future releases can focus on:
 
  - 🔐 Security
 - 💾 Persistent storage
 - 🧪 Automated testing
-- 🏗️ Code architecture
+- 🏗️ Better architecture
 - 🛡️ Error handling
 - 💳 Transaction management
 - 🎨 User experience
@@ -832,4 +1099,23 @@ The application terminates unexpectedly.
 
 ---
 
- \<p align="center"\> \<strong\>ATM Simulator v1.0.0\</strong\> \<br\> \<sub\>Built with C++ · Educational Project\</sub\> \</p\>
+ ## 📊 Project Status
+
+```
+┌──────────────────────────────────────────────┐
+│              ATM SIMULATOR v1.0.0            │
+├──────────────────────────────────────────────┤
+│                                              │
+│  Account Management       ██████████  100%   │
+│  Authentication           ██████████  100%   │
+│  Banking Operations       ██████████  100%   │
+│  Administrator System     ██████████  100%   │
+│  Persistent Storage       ░░░░░░░░░░    0%   │
+│  Automated Testing        ░░░░░░░░░░    0%   │
+│                                              │
+└──────────────────────────────────────────────┘
+```
+
+---
+
+ \<p align="center"\> \<strong\>🏧 ATM Simulator v1.0.0\</strong\> \<br\> \<sub\>Built with C++ · Educational Project\</sub\> \</p\> \<p align="center"\> ⭐ If you found this project useful, consider giving it a star! \</p\>
