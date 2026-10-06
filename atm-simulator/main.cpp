@@ -10,6 +10,7 @@ int main(){
     string accountloggedinname {};
     int accountloggedinpin {};
     int accountloggedinindex {};
+    string accountloggedintype;
     while(true){
         mainmenu();
         int userinput {takeinput()};
@@ -18,13 +19,13 @@ int main(){
         }
         else{
             if(userinput == 1){
-                login(accountloggedinindex, numberofaccounts, loggedin, accountloggedinnumber, accountloggedinname, accountloggedinpin);
+                login(accountloggedinindex, numberofaccounts, loggedin, accountloggedinnumber, accountloggedinname, accountloggedinpin, accountloggedintype);
                 wait();
             }
             else if(userinput == 2){
                 while(true){
                     if(loggedin){
-                        accountinfo(accountloggedinnumber, accountloggedinname);
+                        accountinfo(accountloggedinnumber, accountloggedinname, accountloggedintype);
                         userinput = takeinput();
                         if(cin.fail()){
                             cinbugfix();
@@ -42,9 +43,20 @@ int main(){
                                 accountloggedinname.clear();
                                 accountloggedinnumber = 0;
                                 accountloggedinpin = 0;
+                                accountloggedinindex = 0;
+                                accountloggedintype.clear();
                                 loggedin = false;
                             }
                             else if(userinput == 4){
+                                deleteloggedinaccount(numberofaccounts, accountloggedinpin, accountloggedinindex);
+                                accountloggedinname.clear();
+                                accountloggedinnumber = 0;
+                                accountloggedinpin = 0;
+                                accountloggedinindex = 0;
+                                accountloggedintype.clear();
+                                loggedin = false;
+                            }
+                            else if(userinput == 5){
                                 break;
                             }
                             else{
@@ -59,32 +71,38 @@ int main(){
                 }
             }
             else if(userinput == 3){
-                add(numberofaccounts);
+                add(numberofaccounts, accountloggedintype, loggedin);
                 wait();
             }
             else if(userinput == 4){
                 while(true){
-                    showaccounts(numberofaccounts);
-                    if(numberofaccounts == 0){
-                        cout << "No account found, make one using (register) option!" << endl;
-                        break;
-                    }
-                    else{
-                        userinput = takeinput();
-                        if(cin.fail()){
-                            cinbugfix();
+                    if(loggedin && accountloggedintype == "Admin"){
+                        showaccounts(numberofaccounts);
+                        if(numberofaccounts == 0){
+                            cout << "No account found, make one using (register) option!" << endl;
+                            break;
                         }
                         else{
-                            if(userinput == 1){
-                                deleteaccount(numberofaccounts, loggedin, accountloggedinnumber, accountloggedinname, accountloggedinpin);
-                            }
-                            else if(userinput == 2){
-                                break;
+                            userinput = takeinput();
+                            if(cin.fail()){
+                                cinbugfix();
                             }
                             else{
-                                cout << "Invalid Input!" << endl;
+                                if(userinput == 1){
+                                    deleteaccount(numberofaccounts, loggedin, accountloggedinnumber, accountloggedinname, accountloggedinpin);
+                                }
+                                else if(userinput == 2){
+                                    break;
+                                }
+                                else{
+                                    cout << "Invalid Input!" << endl;
+                                }
                             }
                         }
+                    }
+                    else{
+                        cout << "You are not an admin" << endl;
+                        break;
                     }
                 }
             }
@@ -125,6 +143,10 @@ int main(){
                 }
             }
             else if(userinput == 6){
+                addadminaccount(numberofaccounts);
+                wait();
+            }
+            else if(userinput == 7){
                 break;
             }
             else{
