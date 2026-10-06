@@ -1,4 +1,3 @@
-```
 # 🏧 ATM Simulator
 
  \<p align="center"\> \<strong\>A console-based ATM simulator written in C++\</strong\> \<br\> Built for learning, experimentation, and practicing C++ software development. \</p\> \<p align="center"\> \
@@ -12,7 +11,6 @@
 >  This is an **educational ATM simulator**. It does not connect to real banking systems and must not be used with real banking credentials, PINs, passwords, or financial information.
 
 ---
-```
 
  # 📑 Table of Contents
 
