@@ -12,7 +12,8 @@ void mainmenu(){
     cout << "3. Register(create a account)" << endl;
     cout << "4. See all accounts on the device" << endl;
     cout << "5. Check your balance, deposit, withdraw and transfer" << endl;
-    cout << "6. Exit" << endl;
+    cout << "6. Register a Admin account" << endl;
+    cout << "7. Exit" << endl;
     cout << "Input:" << endl;
 }
 
@@ -35,12 +36,14 @@ int takeinput(){
 }
 
 struct accounts{
+    string accounttype;
     int accountnumber;
     string name;
     int pin;
     int money;
+    int maxdeposit_withdraw_transfer;
 };
-accounts account[10];
+accounts account[1000];
 
 void pinrules(){
     cout << "   RULES    " << endl;
@@ -52,12 +55,25 @@ void pinrules(){
 void accountnumberrules(){
     cout << "   RULES    " << endl;
     cout << "Limitation: zero at start of account number is removed e.g 0123 would be 123 or 000123 would be 123" << endl;
-    cout << "Account number should be 8 digits no more no less" << endl;
+    cout << "Account number should be 6 digits no more no less" << endl;
     cout << "Account number should be unique and contain no special characters or letters" << endl;
 }
 
-void add(int& numberofaccounts){
-    if(numberofaccounts == 10){
+void add(int& numberofaccounts, string accountloggedintype, bool loggedin){
+    cout << "Please select account type:" << endl;
+    cout << "1. Standard    " << "2. Business    " << endl;
+    int accounttypeinput {takeinput()};
+    string tempaccounttype;
+    bool iscorrectinput {false};
+    if(accounttypeinput == 1){
+        tempaccounttype = "standard";
+        iscorrectinput = true;
+    }
+    else if(accounttypeinput == 2){
+        tempaccounttype = "business";
+        iscorrectinput = true;
+    }
+    if(numberofaccounts == 1000 && iscorrectinput){
         cout << "Maximum numbers of accounts reached" << endl;
     }
     else{
@@ -81,8 +97,8 @@ void add(int& numberofaccounts){
                 }
                 if(!duplicate){
                     string variablefornumbercheck {to_string(tempnumber)};
-                    if(variablefornumbercheck.size() != 8){
-                        cout << "Error: Account number should be 8 digits" << endl;
+                    if(variablefornumbercheck.size() != 6){
+                        cout << "Error: Account number should be 6 digits" << endl;
                     }
                     else{
                         cout << "Enter Name" << endl;
@@ -113,6 +129,13 @@ void add(int& numberofaccounts){
                                         account[numberofaccounts].name = tempname;
                                         account[numberofaccounts].pin = temppin;
                                         account[numberofaccounts].money = 7000;
+                                        account[numberofaccounts].accounttype = tempaccounttype;
+                                        if(tempaccounttype == "standard"){
+                                            account[numberofaccounts].maxdeposit_withdraw_transfer = 10000;
+                                        }
+                                        else if(tempaccounttype == "business"){
+                                            account[numberofaccounts].maxdeposit_withdraw_transfer = 50000;
+                                        }
                                         cout << "Account added successfully" << endl;
                                         cout << "Please login from the login option in main menu!" << endl;
                                         numberofaccounts+=1;
@@ -127,6 +150,39 @@ void add(int& numberofaccounts){
                 }
             }
         }
+    }
+}
+
+void addadminaccount(int& numberofaccounts){
+    cout << "Type the pin required to make a admin account: " << endl;
+    int pinforadd {takeinput()};
+    if(pinforadd == 66667777){
+        bool noadminaccount {true};
+        for(int i=0;i<numberofaccounts;i++){
+            if(account[i].accounttype == "Admin"){
+                noadminaccount = false;
+                break;
+            }
+        }
+        if(noadminaccount){
+            account[numberofaccounts].accountnumber = 11111111;
+            account[numberofaccounts].pin = 1223334444;
+            account[numberofaccounts].accounttype = "Admin";
+            account[numberofaccounts].name = "Admin";
+            account[numberofaccounts].money = 7000;
+            account[numberofaccounts].maxdeposit_withdraw_transfer = 100000;
+            cout << "Account number: " << account[numberofaccounts].accountnumber << endl;
+            cout << "Account name: " << account[numberofaccounts].name << endl;
+            cout << "Account pin: " << account[numberofaccounts].pin << endl;
+            cout << "Account added successfully" << endl;
+            numberofaccounts++;
+        }
+        else{
+            cout << "Only one admin account only" << endl;
+        }
+    }
+    else{
+        cout << "Pin is invalid" << endl;
     }
 }
 
@@ -211,7 +267,7 @@ void deleteaccount(int& numberofaccounts, bool& loggedin, int& accountloggedinnu
     }
 }
 
-void login(int& accountloggedinindex, int numberofaccounts, bool& loggedin, int& accountloggedinnumber, string& accountloggedinname, int& accountloggedinpin){
+void login(int& accountloggedinindex, int numberofaccounts, bool& loggedin, int& accountloggedinnumber, string& accountloggedinname, int& accountloggedinpin, string& accountloggedintype){
     if(loggedin){
         cout << "Already logged in!" << endl;
     }
@@ -231,6 +287,7 @@ void login(int& accountloggedinindex, int numberofaccounts, bool& loggedin, int&
                 cout << "Account Number: " << account[account_index].accountnumber << endl;
                 cout << "Name: " << account[account_index].name << endl;
                 accountloggedinindex = account_index;
+                accountloggedintype = account[account_index].accounttype;
                 loggedin = true;
                 cout << "Login attempt was successfull" << endl;
             }
@@ -244,18 +301,38 @@ void login(int& accountloggedinindex, int numberofaccounts, bool& loggedin, int&
     }
 }
 
-void accountinfo(int accountloggedinnumber, string accountloggedinname){
+void accountinfo(int accountloggedinnumber, string accountloggedinname, string accountloggedintype){
     cout << "===================" << endl;
     cout << "   ACCOUNT INFO    " << endl;
     cout << "===================" << endl;
     cout << endl;
+    cout << "Account Type: " << accountloggedintype << endl;
     cout << "Account Number: " << accountloggedinnumber << endl;
     cout << "Account Name: " << accountloggedinname  << endl;
     cout << "1. Change Pin" << endl;
     cout << "2. Change account name" << endl;
     cout << "3. Log out" << endl;
-    cout << "4. Exit" << endl;
+    cout << "4. delete account" << endl;
+    cout << "5. Exit" << endl;
     cout << "Input: " << endl;
+}
+
+void deleteloggedinaccount(int& numberofaccounts, int accountloggedinpin, int accountloggedinindex){
+    if(inputpin(accountloggedinpin)){
+        cout << "Type (y) to confirm or (n) to cancel" << endl;
+        string confirmation;
+        cin >> confirmation;
+        if(confirmation == "y"){
+            for(int i=accountloggedinindex;i<numberofaccounts-1;i++){
+                account[i] = account[i+1];
+            }
+            numberofaccounts--;
+            cout << "Successfully deleted" << endl;
+        }
+    }
+    else{
+        cout << "Invalid Pin" << endl;
+    }
 }
 
 void changepin(int accountloggedinindex, int& accountloggedinpin){
@@ -331,6 +408,9 @@ void depositmoney(int accountloggedinindex, int accountloggedinpin){
     if(ammount <= 0){
         cout << "Amount can't be zero or negative!" << endl;
     }
+    else if(ammount > account[accountloggedinindex].maxdeposit_withdraw_transfer){
+        cout << "Max amount you can deposit at one time is " << account[accountloggedinindex].maxdeposit_withdraw_transfer << endl;
+    }
     else{
         if(inputpin(accountloggedinpin)){
             account[accountloggedinindex].money += ammount;
@@ -348,6 +428,9 @@ void withdrawmoney(int accountloggedinindex, int accountloggedinpin){
     int ammount {takeinput()};
     if(ammount <= 0 || ammount > account[accountloggedinindex].money){
         cout << "Amount can't be bigger than balance, amount can't be zero or negative" << endl;
+    }
+    else if(ammount > account[accountloggedinindex].maxdeposit_withdraw_transfer){
+        cout << "Max amount you can deposit at one time is " << account[accountloggedinindex].maxdeposit_withdraw_transfer << endl;
     }
     else{
         if(inputpin(accountloggedinpin)){
@@ -386,6 +469,9 @@ void transfermoney(int accountloggedinindex, int numberofaccounts, int accountlo
                     if(ammount <= 0 || ammount > account[accountloggedinindex].money){
                         cout << "Amount can't be bigger than balance, ammount can't be zero or negative" << endl;
                         break;
+                    }
+                    else if(ammount > account[accountloggedinindex].maxdeposit_withdraw_transfer){
+                        cout << "Max amount you can deposit at one time is " << account[accountloggedinindex].maxdeposit_withdraw_transfer << endl;
                     }
                     else{
                         cout << "confirm transfer " << ammount << " to " << account[account_index2].name << ":" << endl;
