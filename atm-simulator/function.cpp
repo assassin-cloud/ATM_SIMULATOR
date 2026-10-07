@@ -1,157 +1,527 @@
-#include "function.h"
 #include<iostream>
 #include<string>
 using namespace std;
 
-int main(){
-    int numberofaccounts {};
-    bool loggedin {false};
-    int accountloggedinnumber {};
-    string accountloggedinname {};
-    int accountloggedinpin {};
-    int accountloggedinindex {};
-    string accountloggedintype;
-    while(true){
-        mainmenu();
-        int userinput {takeinput()};
+void mainmenu(){
+    cout << "==========" << endl;
+    cout << "   ATM    " << endl;
+    cout << "==========" << endl;
+    cout << endl;
+    cout << "1. Login" << endl;
+    cout << "2. Account info/settings" << endl;
+    cout << "3. Register(create a account)" << endl;
+    cout << "4. See all accounts on the device" << endl;
+    cout << "5. Check your balance, deposit, withdraw and transfer" << endl;
+    cout << "6. Register a Admin account" << endl;
+    cout << "7. Exit" << endl;
+    cout << "Input:" << endl;
+}
+
+void wait(){
+    cout << "Press a Enter to continue..." << endl;
+    cin.ignore(1000, '\n');
+    cin.get();
+}
+
+void cinbugfix(){
+    cout << "Invalid Input" << endl;
+    cin.clear();
+    cin.ignore(1000, '\n');
+}
+
+int takeinput(){
+    int x;
+    cin >> x;
+    return x;
+}
+
+struct accounts{
+    string accounttype;
+    int accountnumber;
+    string name;
+    int pin;
+    int money;
+    int maxdeposit_withdraw_transfer;
+};
+accounts account[1000];
+
+void pinrules(){
+    cout << "   RULES    " << endl;
+    cout << "Limitation: zero at start of pin is removed e.g 0123 would be 123 or 000123 would be 123" << endl;
+    cout << "Pin can't be greater than 6 digits or less than 4 digits" << endl;
+    cout << "Pin should not contain any letter" << endl;
+}
+
+void accountnumberrules(){
+    cout << "   RULES    " << endl;
+    cout << "Limitation: zero at start of account number is removed e.g 0123 would be 123 or 000123 would be 123" << endl;
+    cout << "Account number should be 6 digits no more no less" << endl;
+    cout << "Account number should be unique and contain no special characters or letters" << endl;
+}
+
+void add(int& numberofaccounts, string accountloggedintype, bool loggedin){
+    cout << "Please select account type:" << endl;
+    cout << "1. Standard    " << "2. Business    " << endl;
+    int accounttypeinput {takeinput()};
+    string tempaccounttype;
+    bool iscorrectinput {false};
+    if(accounttypeinput == 1){
+        tempaccounttype = "standard";
+        iscorrectinput = true;
+    }
+    else if(accounttypeinput == 2){
+        tempaccounttype = "business";
+        iscorrectinput = true;
+    }
+    if(numberofaccounts == 1000 && iscorrectinput){
+        cout << "Maximum numbers of accounts reached" << endl;
+    }
+    else{
+        accountnumberrules();
+        cout << "Enter a unique number for your account:" << endl;
+        int tempnumber {takeinput()};
         if(cin.fail()){
             cinbugfix();
         }
         else{
-            if(userinput == 1){
-                login(accountloggedinindex, numberofaccounts, loggedin, accountloggedinnumber, accountloggedinname, accountloggedinpin, accountloggedintype);
-                wait();
+            if(tempnumber <= 0){
+                cout << "Account number can't be negative or zero!" << endl;
             }
-            else if(userinput == 2){
-                while(true){
-                    if(loggedin){
-                        accountinfo(accountloggedinnumber, accountloggedinname, accountloggedintype);
-                        userinput = takeinput();
-                        if(cin.fail()){
-                            cinbugfix();
-                        }
-                        else{
-                            if(userinput == 1){
-                                changepin(accountloggedinindex, accountloggedinpin);
-                                wait();
-                            }
-                            else if(userinput == 2){
-                                changeaccountname(accountloggedinindex, accountloggedinname, accountloggedinpin);
-                                wait();
-                            }
-                            else if(userinput == 3){
-                                accountloggedinname.clear();
-                                accountloggedinnumber = 0;
-                                accountloggedinpin = 0;
-                                accountloggedinindex = 0;
-                                accountloggedintype.clear();
-                                loggedin = false;
-                            }
-                            else if(userinput == 4){
-                                deleteloggedinaccount(numberofaccounts, accountloggedinpin, accountloggedinindex);
-                                accountloggedinname.clear();
-                                accountloggedinnumber = 0;
-                                accountloggedinpin = 0;
-                                accountloggedinindex = 0;
-                                accountloggedintype.clear();
-                                loggedin = false;
-                            }
-                            else if(userinput == 5){
-                                break;
-                            }
-                            else{
-                                cout << "Invalid Input!" << endl;
-                            }
-                        }
-                    }
-                    else{
-                        cout << "No account logged in, please log in the try" << endl;
+            else{
+                bool duplicate {false};
+                for(int i=0;i<numberofaccounts;i++){
+                    if(tempnumber == account[i].accountnumber){
+                        duplicate = true;
                         break;
                     }
                 }
-            }
-            else if(userinput == 3){
-                add(numberofaccounts, accountloggedintype, loggedin);
-                wait();
-            }
-            else if(userinput == 4){
-                while(true){
-                    if(loggedin && accountloggedintype == "Admin"){
-                        showaccounts(numberofaccounts);
-                        if(numberofaccounts == 0){
-                            cout << "No account found, make one using (register) option!" << endl;
-                            break;
+                if(!duplicate){
+                    string variablefornumbercheck {to_string(tempnumber)};
+                    if(variablefornumbercheck.size() != 6){
+                        cout << "Error: Account number should be 6 digits" << endl;
+                    }
+                    else{
+                        cout << "Enter Name" << endl;
+                        string tempname {};
+                        cin.ignore(1000, '\n');
+                        getline(cin, tempname);
+                        if(tempname.empty()){
+                            cout << "Name can't be empty" << endl;
                         }
                         else{
-                            userinput = takeinput();
+                            pinrules();
+                            cout << "PIN:" << endl;
+                            int temppin(takeinput());
                             if(cin.fail()){
                                 cinbugfix();
                             }
                             else{
-                                if(userinput == 1){
-                                    deleteaccount(numberofaccounts, loggedin, accountloggedinnumber, accountloggedinname, accountloggedinpin, accountloggedinindex);
-                                }
-                                else if(userinput == 2){
-                                    break;
+                                if(temppin <= 0){
+                                    cout << "Pin can't be negative" << endl;
                                 }
                                 else{
-                                    cout << "Invalid Input!" << endl;
+                                    string variableforpincheck {to_string(temppin)};
+                                    if(variableforpincheck.size() < 4 || variableforpincheck.size() > 6){
+                                        cout << "Error: Pin can't be less than 4 digits or greater than 6" << endl;
+                                    }
+                                    else{
+                                        account[numberofaccounts].accountnumber = tempnumber;
+                                        account[numberofaccounts].name = tempname;
+                                        account[numberofaccounts].pin = temppin;
+                                        account[numberofaccounts].money = 7000;
+                                        account[numberofaccounts].accounttype = tempaccounttype;
+                                        if(tempaccounttype == "standard"){
+                                            account[numberofaccounts].maxdeposit_withdraw_transfer = 10000;
+                                        }
+                                        else if(tempaccounttype == "business"){
+                                            account[numberofaccounts].maxdeposit_withdraw_transfer = 50000;
+                                        }
+                                        cout << "Account added successfully" << endl;
+                                        cout << "Please login from the login option in main menu!" << endl;
+                                        numberofaccounts+=1;
+                                    }
                                 }
                             }
                         }
                     }
-                    else{
-                        cout << "You are not an admin" << endl;
-                        break;
-                    }
+                }
+                else{
+                    cout << "Account number same as another account" << endl;
                 }
             }
-            else if(userinput == 5){
-                while(true){
-                    if(loggedin){
-                        moneyrelated();
-                        userinput = takeinput();
-                        if(cin.fail()){
-                            cinbugfix();
+        }
+    }
+}
+
+void addadminaccount(int& numberofaccounts){
+    if(numberofaccounts >= 1000){
+        cout << "Max account limit reached!" << endl;
+    }
+    else{
+        cout << "Type the pin required to make a admin account: " << endl;
+        int pinforadd {takeinput()};
+        if(pinforadd == 6767){
+            bool noadminaccount {true};
+            for(int i=0;i<numberofaccounts;i++){
+                if(account[i].accounttype == "Admin"){
+                    noadminaccount = false;
+                    break;
+                }
+            }
+            if(noadminaccount){
+                account[numberofaccounts].accountnumber = 11111111;
+                account[numberofaccounts].pin = 122333;
+                account[numberofaccounts].accounttype = "Admin";
+                account[numberofaccounts].name = "Admin";
+                account[numberofaccounts].money = 7000;
+                account[numberofaccounts].maxdeposit_withdraw_transfer = 100000;
+                cout << "Account number: " << account[numberofaccounts].accountnumber << endl;
+                cout << "Account name: " << account[numberofaccounts].name << endl;
+                cout << "Account pin: " << account[numberofaccounts].pin << endl;
+                cout << "Account added successfully" << endl;
+                numberofaccounts++;
+            }
+            else{
+                cout << "Only one admin account only" << endl;
+            }
+        }
+        else{
+            cout << "Pin is invalid" << endl;
+        }
+    }
+}
+
+void showaccounts(int numberofaccounts){
+    cout << "===============" << endl;
+    cout << "   ACCOUNTS    " << endl;
+    cout << "===============" << endl;
+    cout << endl;
+    for(int i=0;i<numberofaccounts;i++){
+        cout << "Account " << i+1 << endl;
+        cout << "Account Number: " << account[i].accountnumber << endl;
+        cout << "Name: " << account[i].name << endl;
+        cout << endl;
+    }
+    cout << "1. Delete account" << endl;
+    cout << "2. Exit" << endl;
+    cout << "Input:" << endl;
+}
+
+bool inputpin(int accountloggedinpin){
+    cout << "Input pin: " << endl;
+    int pin {takeinput()};
+    if(pin == accountloggedinpin){
+        return true;
+    }
+    else{
+        return false;
+    }
+}
+
+void findaccount(int numberofaccounts, int accountloggedinnumber, bool& accountfound, int& account_index){
+    for(int i=0;i<numberofaccounts;i++){
+        if(accountloggedinnumber == account[i].accountnumber){
+            account_index = i;
+            accountfound = true;
+            break;
+        }
+    }
+}
+
+void deleteaccount(int& numberofaccounts, bool& loggedin, int& accountloggedinnumber, string& accountloggedinname, int& accountloggedinpin, int& accountloggedinindex){
+    if(numberofaccounts == 0){
+        cout << "NO Account found, create one using register menu!" << endl;
+    }
+    else{
+        cout << "Type account number of the account you wanna delete:" << endl;
+        int remove {takeinput()};
+        bool canrun {false};
+        int account_index {};
+        findaccount(numberofaccounts, remove, canrun, account_index);
+        if(canrun){
+            cout << "Input pin: " << endl;
+            int inputpin {takeinput()};
+            if(inputpin == account[account_index].pin){
+                cout << "Confirm (y) to delete " << account[account_index].name << " account or revert (n) y/n:" << endl;
+                string confirmation;
+                cin >> confirmation;
+                if(confirmation == "y"){
+                    if(accountloggedinnumber == account[account_index].accountnumber){
+                        accountloggedinname.clear();
+                        accountloggedinnumber = 0;
+                        accountloggedinpin = 0;
+                        loggedin = false;
+                    }
+                    for(int i=account_index;i<numberofaccounts-1;i++){
+                        account[i] = account[i+1];
+                    }
+                    for(int i=0;i<numberofaccounts;i++){
+                        if(accountloggedinnumber == account[i].accountnumber){
+                            accountloggedinindex = i;
+                            break;
                         }
-                        else{
-                            if(userinput == 1){
+                    }
+                    cout << "Successfully deleted" << endl;
+                    numberofaccounts--;
+                }
+                else if(confirmation != "n"){
+                    cout << "Invalid Input" << endl;
+                }
+            }
+            else{
+                cout << "Invalid Pin!" << endl;
+            }
+        }
+        else{
+            cout << "Invalid account number!" << endl;
+        }
+    }
+}
+
+void login(int& accountloggedinindex, int numberofaccounts, bool& loggedin, int& accountloggedinnumber, string& accountloggedinname, int& accountloggedinpin, string& accountloggedintype){
+    if(loggedin){
+        cout << "Already logged in!" << endl;
+    }
+    else{
+        cout << "Type the account number of the account you want to log in:" << endl;
+        int number {takeinput()};
+        bool iscorrectnumber {false};
+        int account_index {};
+        findaccount(numberofaccounts, number, iscorrectnumber, account_index);
+        if(iscorrectnumber){
+            cout << "Input Pin:" << endl;
+            int pinforlogin {takeinput()};
+            if(pinforlogin == account[account_index].pin){
+                accountloggedinnumber = account[account_index].accountnumber;
+                accountloggedinname = account[account_index].name;
+                accountloggedinpin = account[account_index].pin;
+                cout << "Account Number: " << account[account_index].accountnumber << endl;
+                cout << "Name: " << account[account_index].name << endl;
+                accountloggedinindex = account_index;
+                accountloggedintype = account[account_index].accounttype;
+                loggedin = true;
+                cout << "Login attempt was successfull" << endl;
+            }
+            else{
+                cout << "Invalid Pin" << endl;
+            }
+        }
+        else{
+            cout << "No account found, create one using register" << endl;
+        }
+    }
+}
+
+void accountinfo(int accountloggedinnumber, string accountloggedinname, string accountloggedintype){
+    cout << "===================" << endl;
+    cout << "   ACCOUNT INFO    " << endl;
+    cout << "===================" << endl;
+    cout << endl;
+    cout << "Account Type: " << accountloggedintype << endl;
+    cout << "Account Number: " << accountloggedinnumber << endl;
+    cout << "Account Name: " << accountloggedinname  << endl;
+    cout << "1. Change Pin" << endl;
+    cout << "2. Change account name" << endl;
+    cout << "3. Log out" << endl;
+    cout << "4. delete account" << endl;
+    cout << "5. Exit" << endl;
+    cout << "Input: " << endl;
+}
+
+void deleteloggedinaccount(int& numberofaccounts, int accountloggedinpin, int accountloggedinindex){
+    if(inputpin(accountloggedinpin)){
+        cout << "Type (y) to confirm or (n) to cancel" << endl;
+        string confirmation;
+        cin >> confirmation;
+        if(confirmation == "y"){
+            for(int i=accountloggedinindex;i<numberofaccounts-1;i++){
+                account[i] = account[i+1];
+            }
+            numberofaccounts--;
+            cout << "Successfully deleted" << endl;
+        }
+    }
+    else{
+        cout << "Invalid Pin" << endl;
+    }
+}
+
+void changepin(int accountloggedinindex, int& accountloggedinpin){
+    if(inputpin(accountloggedinpin)){
+        pinrules();
+        cout << "Input new pin:" << endl;
+        int newpin {takeinput()};
+        if(cin.fail()){
+            cinbugfix();
+        }
+        else{
+            if(newpin <= 0){
+                cout << "Pin can't be negative or zero" << endl;
+            }
+            else{
+                string variableforpincheck {to_string(newpin)};
+                if(variableforpincheck.size() < 4 || variableforpincheck.size() > 6){
+                    cout << "Error: pin can't be greater than 6 or less than 4 digits" << endl;
+                }
+                else{
+                    cout << "Successfully Changed!" << endl;
+                    account[accountloggedinindex].pin = newpin;
+                    accountloggedinpin = newpin;
+                }
+            }
+        }
+    }
+    else{
+        cout << "Wrong Pin" << endl;
+    }
+}
+
+void changeaccountname(int accountloggedinindex, string& accountloggedinname, int accountloggedinpin){
+    string newname {};
+    cout << "Input new name: " << endl;
+    cin.ignore(1000, '\n');
+    getline(cin, newname);
+    if(newname == account[accountloggedinindex].name || newname.empty()){
+        cout << "account name can't be empty or can't be the same as before" << endl;
+    }
+    else{
+        if(inputpin(accountloggedinpin)){
+            account[accountloggedinindex].name = newname;
+            cout << "Name successfully changed" << endl;
+            accountloggedinname = account[accountloggedinindex].name;
+        }
+        else{
+            cout << "Invalid Pin" << endl;
+        }
+    }
+}
+
+void moneyrelated(){
+    cout << "==========" << endl;
+    cout << "   ATM    " << endl;
+    cout << "==========" << endl;
+    cout << endl;
+    cout << "1. Check your balance" << endl;
+    cout << "2. Deposit money" << endl;
+    cout << "3. Withdraw money" << endl;
+    cout << "4. Transfer money" << endl;
+    cout << "5. Exit" << endl;
+    cout << "Input:" << endl;
+}
+
+void checkbalance(int accountloggedinindex){
+    cout << "Balance: " << "$" << account[accountloggedinindex].money << endl;
+}
+
+void depositmoney(int accountloggedinindex, int accountloggedinpin){
+    cout << "Input the amount you wanna deposit:" << endl;
+    int ammount {takeinput()};
+    if(ammount <= 0){
+        cout << "Amount can't be zero or negative!" << endl;
+    }
+    else if(ammount > account[accountloggedinindex].maxdeposit_withdraw_transfer){
+        cout << "Max amount you can deposit at one time is " << account[accountloggedinindex].maxdeposit_withdraw_transfer << endl;
+    }
+    else{
+        if(inputpin(accountloggedinpin)){
+            account[accountloggedinindex].money += ammount;
+            cout << "Amount successfully deposited" << endl;
+            checkbalance(accountloggedinindex);
+        }
+        else{
+            cout << "Invalid Pin!" << endl;
+        }
+    }
+}
+
+void withdrawmoney(int accountloggedinindex, int accountloggedinpin){
+    cout << "Input the amount you wanna withdraw" << endl;
+    int ammount {takeinput()};
+    if(ammount <= 0 || ammount > account[accountloggedinindex].money){
+        cout << "Amount can't be bigger than balance, amount can't be zero or negative" << endl;
+    }
+    else if(ammount > account[accountloggedinindex].maxdeposit_withdraw_transfer){
+        cout << "Max amount you can withdraw at one time is " << account[accountloggedinindex].maxdeposit_withdraw_transfer << endl;
+    }
+    else{
+        if(inputpin(accountloggedinpin)){
+            account[accountloggedinindex].money -= ammount;
+            cout << "Amount successfully withdrawn" << endl;
+            checkbalance(accountloggedinindex);
+        }
+        else{
+            cout << "Invalid Pin!" << endl;
+        }
+    }
+}
+
+void transfermoney(int accountloggedinindex, int numberofaccounts, int accountloggedinpin){
+    while(true){
+        cout << "Type the account number you wanna transfer to: " << endl;
+        int inputaccount {takeinput()};
+        int account_index2 {};
+        bool accountfound2 {false};
+        findaccount(numberofaccounts, inputaccount, accountfound2, account_index2);
+        if(accountfound2){
+            if(account[account_index2].accountnumber == account[accountloggedinindex].accountnumber){
+                cout << "Can't transfer money to the same account!" << endl;
+                continue;
+            }
+            else{
+                cout << "Account found: " << endl;
+                cout << "Account Number: " << account[account_index2].accountnumber << endl;
+                cout << "Name: " << account[account_index2].name << endl;
+                cout << "Is this correct account? type(y) to confirm, (n) if it's wrong or (q) to cancel: " << endl;
+                string userinput;
+                cin >> userinput;
+                if(userinput == "y"){ 
+                    cout << "Input the amount you wanna transfer: " << endl;
+                    int ammount {takeinput()};
+                    if(ammount <= 0 || ammount > account[accountloggedinindex].money){
+                        cout << "Amount can't be bigger than balance, ammount can't be zero or negative" << endl;
+                        break;
+                    }
+                    else if(ammount > account[accountloggedinindex].maxdeposit_withdraw_transfer){
+                        cout << "Max amount you can transfer at one time is " << account[accountloggedinindex].maxdeposit_withdraw_transfer << endl;
+                    }
+                    else{
+                        cout << "confirm transfer " << ammount << " to " << account[account_index2].name << ":" << endl;
+                        string confirmation {};
+                        cin >> confirmation;
+                        if(confirmation == "y"){
+                            if(inputpin(accountloggedinpin)){
+                                account[accountloggedinindex].money -= ammount;
+                                account[account_index2].money += ammount;
+                                cout << "Successfully transfered" << endl;
+                                cout << account[accountloggedinindex].name << " Transfered " << ammount << " to " << account[account_index2].name << endl;
                                 checkbalance(accountloggedinindex);
-                                wait();
+                                break;
                             }
-                            else if(userinput == 2){
-                                depositmoney(accountloggedinindex, accountloggedinpin);
-                                wait();
-                            }
-                            else if(userinput == 3){
-                                withdrawmoney(accountloggedinindex, accountloggedinpin);
-                                wait();
-                            }
-                            else if(userinput == 4){
-                                transfermoney(accountloggedinindex, numberofaccounts, accountloggedinpin);
-                                wait();
-                            }
-                            else if(userinput == 5){
+                            else{
+                                cout << "Invalid Pin" << endl;
                                 break;
                             }
                         }
-                    }
-                    else{
-                        cout << "Please login into your account!" << endl;
-                        break;
+                        else{
+                            break;
+                        }
                     }
                 }
+                else if(userinput == "q"){
+                    break;
+                }
+                else if(userinput == "n"){
+                    continue;
+                }
+                else{
+                    cout << "Invalid Input" << endl;
+                    continue;
+                }
             }
-            else if(userinput == 6){
-                addadminaccount(numberofaccounts);
-                wait();
-            }
-            else if(userinput == 7){
-                break;
-            }
-            else{
-                cout << "Invalid Input" << endl;
-            }
+        }
+        else{
+            cout << "Can't find the account" << endl;
+            break;
         }
     }
 }
