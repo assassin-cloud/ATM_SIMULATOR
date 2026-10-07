@@ -89,7 +89,7 @@ int main(){
                             }
                             else{
                                 if(userinput == 1){
-                                    deleteaccount(numberofaccounts, loggedin, accountloggedinnumber, accountloggedinname, accountloggedinpin);
+                                    deleteaccount(numberofaccounts, loggedin, accountloggedinnumber, accountloggedinname, accountloggedinpin, accountloggedinindex);
                                 }
                                 else if(userinput == 2){
                                     break;
