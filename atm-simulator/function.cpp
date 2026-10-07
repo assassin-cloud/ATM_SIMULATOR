@@ -154,35 +154,37 @@ void add(int& numberofaccounts, string accountloggedintype, bool loggedin){
 }
 
 void addadminaccount(int& numberofaccounts){
-    cout << "Type the pin required to make a admin account: " << endl;
-    int pinforadd {takeinput()};
-    if(pinforadd == 66667777){
-        bool noadminaccount {true};
-        for(int i=0;i<numberofaccounts;i++){
-            if(account[i].accounttype == "Admin"){
-                noadminaccount = false;
-                break;
+    if(numberofaccounts >= 1000){
+        cout << "Type the pin required to make a admin account: " << endl;
+        int pinforadd {takeinput()};
+        if(pinforadd == 66667777){
+            bool noadminaccount {true};
+            for(int i=0;i<numberofaccounts;i++){
+                if(account[i].accounttype == "Admin"){
+                    noadminaccount = false;
+                    break;
+                }
+            }
+            if(noadminaccount){
+                account[numberofaccounts].accountnumber = 11111111;
+                account[numberofaccounts].pin = 122333;
+                account[numberofaccounts].accounttype = "Admin";
+                account[numberofaccounts].name = "Admin";
+                account[numberofaccounts].money = 7000;
+                account[numberofaccounts].maxdeposit_withdraw_transfer = 100000;
+                cout << "Account number: " << account[numberofaccounts].accountnumber << endl;
+                cout << "Account name: " << account[numberofaccounts].name << endl;
+                cout << "Account pin: " << account[numberofaccounts].pin << endl;
+                cout << "Account added successfully" << endl;
+                numberofaccounts++;
+            }
+            else{
+                cout << "Only one admin account only" << endl;
             }
         }
-        if(noadminaccount){
-            account[numberofaccounts].accountnumber = 11111111;
-            account[numberofaccounts].pin = 1223334444;
-            account[numberofaccounts].accounttype = "Admin";
-            account[numberofaccounts].name = "Admin";
-            account[numberofaccounts].money = 7000;
-            account[numberofaccounts].maxdeposit_withdraw_transfer = 100000;
-            cout << "Account number: " << account[numberofaccounts].accountnumber << endl;
-            cout << "Account name: " << account[numberofaccounts].name << endl;
-            cout << "Account pin: " << account[numberofaccounts].pin << endl;
-            cout << "Account added successfully" << endl;
-            numberofaccounts++;
-        }
         else{
-            cout << "Only one admin account only" << endl;
+            cout << "Pin is invalid" << endl;
         }
-    }
-    else{
-        cout << "Pin is invalid" << endl;
     }
 }
 
@@ -430,7 +432,7 @@ void withdrawmoney(int accountloggedinindex, int accountloggedinpin){
         cout << "Amount can't be bigger than balance, amount can't be zero or negative" << endl;
     }
     else if(ammount > account[accountloggedinindex].maxdeposit_withdraw_transfer){
-        cout << "Max amount you can deposit at one time is " << account[accountloggedinindex].maxdeposit_withdraw_transfer << endl;
+        cout << "Max amount you can withdraw at one time is " << account[accountloggedinindex].maxdeposit_withdraw_transfer << endl;
     }
     else{
         if(inputpin(accountloggedinpin)){
@@ -471,7 +473,7 @@ void transfermoney(int accountloggedinindex, int numberofaccounts, int accountlo
                         break;
                     }
                     else if(ammount > account[accountloggedinindex].maxdeposit_withdraw_transfer){
-                        cout << "Max amount you can deposit at one time is " << account[accountloggedinindex].maxdeposit_withdraw_transfer << endl;
+                        cout << "Max amount you can transfer at one time is " << account[accountloggedinindex].maxdeposit_withdraw_transfer << endl;
                     }
                     else{
                         cout << "confirm transfer " << ammount << " to " << account[account_index2].name << ":" << endl;
