@@ -160,7 +160,7 @@ void addadminaccount(int& numberofaccounts){
     else{
         cout << "Type the pin required to make a admin account: " << endl;
         int pinforadd {takeinput()};
-        if(pinforadd == 66667777){
+        if(pinforadd == 6767){
             bool noadminaccount {true};
             for(int i=0;i<numberofaccounts;i++){
                 if(account[i].accounttype == "Admin"){
