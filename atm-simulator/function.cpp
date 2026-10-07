@@ -155,6 +155,9 @@ void add(int& numberofaccounts, string accountloggedintype, bool loggedin){
 
 void addadminaccount(int& numberofaccounts){
     if(numberofaccounts >= 1000){
+        cout << "Max account limit reached!" << endl;
+    }
+    else{
         cout << "Type the pin required to make a admin account: " << endl;
         int pinforadd {takeinput()};
         if(pinforadd == 66667777){
