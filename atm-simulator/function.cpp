@@ -41,7 +41,7 @@ struct accounts{
     int accountnumber;
     string name;
     int pin;
-    int money;
+    double money;
     int maxdeposit_withdraw_transfer;
 };
 accounts account[1000];
@@ -74,7 +74,7 @@ void add(int& numberofaccounts, string accountloggedintype, bool loggedin){
         tempaccounttype = "business";
         iscorrectinput = true;
     }
-    if(numberofaccounts == 1000 && iscorrectinput){
+    if(numberofaccounts >= 1000 && iscorrectinput){
         cout << "Maximum numbers of accounts reached" << endl;
     }
     else{
@@ -458,9 +458,16 @@ void checkbalance(int accountloggedinindex){
     cout << "Balance: " << "$" << account[accountloggedinindex].money << endl;
 }
 
+double takeamountinput(){
+    cout << "Input Amount: " << endl;
+    double x;
+    cin >> x;
+    return x;
+}
+
 void depositmoney(int accountloggedinindex, int accountloggedinpin){
     cout << "Input the amount you wanna deposit:" << endl;
-    int ammount {takeinput()};
+    double ammount {takeamountinput()};
     if(ammount <= 0){
         cout << "Amount can't be zero or negative!" << endl;
     }
@@ -481,7 +488,7 @@ void depositmoney(int accountloggedinindex, int accountloggedinpin){
 
 void withdrawmoney(int accountloggedinindex, int accountloggedinpin){
     cout << "Input the amount you wanna withdraw" << endl;
-    int ammount {takeinput()};
+    double ammount {takeamountinput()};
     if(ammount <= 0 || ammount > account[accountloggedinindex].money){
         cout << "Amount can't be bigger than balance, amount can't be zero or negative" << endl;
     }
@@ -521,7 +528,7 @@ void transfermoney(int accountloggedinindex, int numberofaccounts, int accountlo
                 cin >> userinput;
                 if(userinput == "y"){ 
                     cout << "Input the amount you wanna transfer: " << endl;
-                    int ammount {takeinput()};
+                    double ammount {takeamountinput()};
                     if(ammount <= 0 || ammount > account[accountloggedinindex].money){
                         cout << "Amount can't be bigger than balance, ammount can't be zero or negative" << endl;
                         break;
