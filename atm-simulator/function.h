@@ -7,6 +7,7 @@ void wait();
 void cinbugfix();
 void add(int& numberofaccounts, std::string accountloggedintype, bool loggedin);
 void showaccounts(int numberofaccounts);
+void accountban(int numberofaccounts, int accountloggedinpin);
 void addadminaccount(int& numberofaccounts);
 void deleteaccount(int& numberofaccounts, bool& loggedin, int& accountloggedinnumber, std::string& accountloggedinname, int& accountloggedinpin, int& accountloggedinindex);
 void login(int& accountloggedinindex, int numberofaccounts, bool& loggedin, int& accountloggedinnumber, std::string& accountloggedinname, int& accountloggedinpin, std::string& accountloggedintype);
