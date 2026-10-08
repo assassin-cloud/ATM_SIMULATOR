@@ -36,6 +36,7 @@ int takeinput(){
 }
 
 struct accounts{
+    bool banned {false};
     string accounttype;
     int accountnumber;
     string name;
@@ -203,7 +204,8 @@ void showaccounts(int numberofaccounts){
         cout << endl;
     }
     cout << "1. Delete account" << endl;
-    cout << "2. Exit" << endl;
+    cout << "2. Ban/unban account" << endl;
+    cout << "3. Exit" << endl;
     cout << "Input:" << endl;
 }
 
@@ -289,21 +291,26 @@ void login(int& accountloggedinindex, int numberofaccounts, bool& loggedin, int&
         int account_index {};
         findaccount(numberofaccounts, number, iscorrectnumber, account_index);
         if(iscorrectnumber){
-            cout << "Input Pin:" << endl;
-            int pinforlogin {takeinput()};
-            if(pinforlogin == account[account_index].pin){
-                accountloggedinnumber = account[account_index].accountnumber;
-                accountloggedinname = account[account_index].name;
-                accountloggedinpin = account[account_index].pin;
-                cout << "Account Number: " << account[account_index].accountnumber << endl;
-                cout << "Name: " << account[account_index].name << endl;
-                accountloggedinindex = account_index;
-                accountloggedintype = account[account_index].accounttype;
-                loggedin = true;
-                cout << "Login attempt was successfull" << endl;
+            if(account[account_index].banned){
+                cout << "Account is banned can't login into that account, please login into an another account(note:Admin can unban)" << endl;
             }
             else{
-                cout << "Invalid Pin" << endl;
+                cout << "Input Pin:" << endl;
+                int pinforlogin {takeinput()};
+                if(pinforlogin == account[account_index].pin){
+                    accountloggedinnumber = account[account_index].accountnumber;
+                    accountloggedinname = account[account_index].name;
+                    accountloggedinpin = account[account_index].pin;
+                    cout << "Account Number: " << account[account_index].accountnumber << endl;
+                    cout << "Name: " << account[account_index].name << endl;
+                    accountloggedinindex = account_index;
+                    accountloggedintype = account[account_index].accounttype;
+                    loggedin = true;
+                    cout << "Login attempt was successfull" << endl;
+                }
+                else{
+                    cout << "Invalid Pin" << endl;
+                }
             }
         }
         else{
@@ -323,9 +330,47 @@ void accountinfo(int accountloggedinnumber, string accountloggedinname, string a
     cout << "1. Change Pin" << endl;
     cout << "2. Change account name" << endl;
     cout << "3. Log out" << endl;
-    cout << "4. delete account" << endl;
+    cout << "4. delete this account" << endl;
     cout << "5. Exit" << endl;
     cout << "Input: " << endl;
+}
+
+void accountban(int numberofaccounts, int accountloggedinpin){
+    bool accountfound {false};
+    int account_index {};
+    cout << "Type account number of the account to ban/unban (note: admin pin is required to ban a account)" << endl;
+    int accountnumber {takeinput()};
+    findaccount(numberofaccounts, accountnumber, accountfound, account_index);
+    if(accountfound){
+        if(account[account_index].accounttype == "Admin"){
+            cout << "Admin account can't be banned" << endl;
+        }
+        else{
+            if(account[account_index].banned){
+                cout << "Type (y) to unban or (n) to cancel" << endl;
+            }
+            else{
+                cout << "Type (y) to ban or (n) to cancel" << endl;
+            }
+            string confirmation;
+            cin >> confirmation;
+            if(confirmation == "y"){
+                if(inputpin(accountloggedinpin)){
+                    if(account[account_index].banned == false){
+                        account[account_index].banned = true;
+                        cout << "Account banned" << endl;
+                    }
+                    else{
+                        account[account_index].banned = false;
+                        cout << "Account unbanned" << endl;
+                    }
+                }
+            }
+        }
+    }
+    else{
+        cout << "Account not found" << endl;
+    }
 }
 
 void deleteloggedinaccount(int& numberofaccounts, int accountloggedinpin, int accountloggedinindex){
