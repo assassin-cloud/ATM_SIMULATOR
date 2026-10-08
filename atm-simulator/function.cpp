@@ -201,6 +201,9 @@ void showaccounts(int numberofaccounts){
         cout << "Account " << i+1 << endl;
         cout << "Account Number: " << account[i].accountnumber << endl;
         cout << "Name: " << account[i].name << endl;
+        cout << boolalpha;
+        cout << "Account Banned: " << account[i].banned << endl;
+        cout << noboolalpha;
         cout << endl;
     }
     cout << "1. Delete account" << endl;
