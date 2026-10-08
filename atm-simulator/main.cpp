@@ -92,6 +92,10 @@ int main(){
                                     deleteaccount(numberofaccounts, loggedin, accountloggedinnumber, accountloggedinname, accountloggedinpin, accountloggedinindex);
                                 }
                                 else if(userinput == 2){
+                                    accountban(numberofaccounts, accountloggedinpin);
+                                    wait();
+                                }
+                                else if(userinput == 3){
                                     break;
                                 }
                                 else{
